@@ -1,269 +1,474 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Digital Rewards Hub</title>
-    <style>
-        /* Reset & Base */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-            background: #f9fafb;
-            color: #1f2937;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Premium Gift</title>
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <style>
+    :root {
+      --bg-gradient: linear-gradient(135deg, #8b5cf6, #0ea5e9);
+      --bg1: #6b73ff;
+      --bg2: #000dff;
+      --card: rgba(255, 255, 255, 0.85);
+      --card-backdrop: blur(16px);
+      --ink: #0f172a;
+      --muted: #64748b;
+      --primary: #7c3aed;
+      --accent: #10b981;
+      --success: #10b981;
+      --error: #ef4444;
+      --radius: 20px;
+      --shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
 
-        /* Main Container */
-        .container {
-            width: 100%;
-            max-width: 800px;
-            background: white;
-            border-radius: 24px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
-            overflow: hidden;
-            border: 1px solid #e5e7eb;
-        }
+    * {
+      box-sizing: border-box;
+    }
 
-        /* Header */
-        .header {
-            padding: 40px 40px 30px;
-            text-align: center;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            position: relative;
-            overflow: hidden;
-        }
-        .header::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(45deg, rgba(255,255,255,0.1) 0%, transparent 100%);
-        }
-        .header h1 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 10px;
-            position: relative;
-        }
-        .header p {
-            font-size: 1.1rem;
-            opacity: 0.9;
-            max-width: 600px;
-            margin: 0 auto;
-            position: relative;
-        }
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
 
-        /* Content Grid */
-        .content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            padding: 40px;
-        }
-        @media (max-width: 768px) {
-            .content { grid-template-columns: 1fr; }
-        }
+    body {
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 10% 20%, rgba(139, 92, 246, 0.15) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(16, 185, 129, 0.12) 0%, transparent 40%),
+        var(--bg-gradient);
+    }
 
-        /* Info Panel */
-        .info-panel {
-            background: #f8fafc;
-            padding: 30px;
-            border-radius: 16px;
-            border: 1px solid #e2e8f0;
-        }
-        .info-panel h2 {
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-            color: #374151;
-        }
-        .info-list {
-            list-style: none;
-        }
-        .info-list li {
-            padding: 12px 0;
-            border-bottom: 1px solid #e5e7eb;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        .info-list li:last-child { border-bottom: none; }
-        .info-list i {
-            color: #667eea;
-            width: 24px;
-        }
+    .orb {
+      position: absolute;
+      filter: blur(80px);
+      opacity: 0.4;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .o1 {
+      width: 360px;
+      height: 360px;
+      background: #8b5cf6;
+      top: -140px;
+      right: -140px;
+    }
+    .o2 {
+      width: 300px;
+      height: 300px;
+      background: #10b981;
+      bottom: -120px;
+      left: -120px;
+    }
 
-        /* Download Card */
-        .download-card {
-            background: white;
-            padding: 30px;
-            border-radius: 16px;
-            border: 2px dashed #c7d2fe;
-            text-align: center;
-        }
-        .file-icon {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 20px;
-            color: white;
-            font-size: 2rem;
-        }
-        .file-details h3 {
-            font-size: 1.3rem;
-            margin-bottom: 8px;
-        }
-        .file-details p {
-            color: #6b7280;
-            margin-bottom: 20px;
-            font-size: 0.95rem;
-        }
+    .shell {
+      width: min(96vw, 680px);
+      max-height: 94vh;
+      display: flex;
+      flex-direction: column;
+      background: var(--card);
+      backdrop-filter: var(--card-backdrop);
+      -webkit-backdrop-filter: var(--card-backdrop);
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      overflow: hidden;
+      position: relative;
+      z-index: 2;
+    }
 
-        /* Download Button */
-        .download-btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            padding: 16px 32px;
-            border-radius: 12px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            width: 100%;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-        .download-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
-        }
+    /* Header */
+    .hero {
+      position: relative;
+      isolation: isolate;
+      padding: 40px 28px 32px;
+      background: linear-gradient(135deg, #7c3aed, #0ea5e9);
+      color: white;
+      text-align: center;
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(45deg, rgba(255, 255, 255, 0.15), transparent);
+    }
+    .gift {
+      width: 100px;
+      height: 100px;
+      border-radius: 24px;
+      display: grid;
+      place-items: center;
+      margin: 0 auto 20px;
+      background: rgba(255, 255, 255, 0.25);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+      animation: float 4s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+    .gift i {
+      font-size: 44px;
+      filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.3));
+    }
+    .hero h1 {
+      margin: 0 0 10px;
+      font-size: clamp(24px, 4vw, 32px);
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
+    .hero p {
+      margin: 0 auto;
+      max-width: 440px;
+      opacity: 0.95;
+      font-size: 16px;
+      line-height: 1.5;
+    }
 
-        /* Footer */
-        .footer {
-            padding: 25px 40px;
-            text-align: center;
-            border-top: 1px solid #e5e7eb;
-            background: #f9fafb;
-            color: #6b7280;
-            font-size: 0.9rem;
-        }
+    /* Content */
+    .content {
+      padding: 28px;
+      overflow-y: auto;
+      flex: 1;
+    }
 
-        /* Security Badge */
-        .security-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 18px;
-            background: #f0f9ff;
-            border-radius: 50px;
-            margin-top: 15px;
-            border: 1px solid #bae6fd;
-            color: #0369a1;
-        }
-    </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .step {
+      background: white;
+      border-radius: 18px;
+      padding: 18px;
+      text-align: center;
+      border: 1px solid #e2e8f0;
+      transition: var(--transition);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.04);
+    }
+    .step:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      border-color: #cbd5e1;
+    }
+    .num {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      margin: 0 auto 12px;
+      display: grid;
+      place-items: center;
+      color: white;
+      font-weight: 800;
+      background: linear-gradient(135deg, #7c3aed, #0ea5e9);
+    }
+    .step i {
+      font-size: 22px;
+      color: #7c3aed;
+      margin: 6px 0;
+    }
+    .step h3 {
+      margin: 6px 0 4px;
+      font-size: 14px;
+      font-weight: 700;
+      color: #1e293b;
+    }
+    .step p {
+      margin: 0;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .file {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      margin: 20px 0;
+      padding: 18px;
+      border-radius: 18px;
+      border: 1px dashed #c7d2fe;
+      background: #f0f9ff;
+    }
+    .file .icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      background: white;
+      box-shadow: 0 4px 12px rgba(124, 58, 237, 0.1);
+    }
+    .file .icon i {
+      font-size: 28px;
+      color: #7c3aed;
+    }
+    .file h4 {
+      margin: 0 0 6px;
+      font-weight: 700;
+      color: #1e293b;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: #ede9fe;
+      color: #5b21b6;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .cta {
+      margin-top: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .btn {
+      appearance: none;
+      border: 0;
+      border-radius: 14px;
+      padding: 16px;
+      background: linear-gradient(135deg, #7c3aed, #0ea5e9);
+      color: white;
+      font-weight: 800;
+      font-size: 16px;
+      letter-spacing: 0.4px;
+      cursor: pointer;
+      transition: var(--transition);
+      box-shadow: 0 6px 16px rgba(124, 58, 237, 0.3);
+    }
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(124, 58, 237, 0.4);
+    }
+    .btn:active {
+      transform: translateY(1px);
+    }
+    .hint {
+      font-size: 13px;
+      color: var(--muted);
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .code {
+      margin-top: 20px;
+      padding: 20px;
+      border-radius: 18px;
+      color: white;
+      text-align: center;
+      background: linear-gradient(135deg, #0f172a, #1e293b);
+      position: relative;
+      overflow: hidden;
+    }
+    .code::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+      animation: rotate 25s linear infinite;
+    }
+    @keyframes rotate {
+      to { transform: rotate(360deg); }
+    }
+    .code small {
+      display: block;
+      opacity: 0.85;
+      font-size: 13px;
+      margin-bottom: 12px;
+      position: relative;
+      z-index: 1;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+    }
+    .code b {
+      display: block;
+      letter-spacing: 3px;
+      margin: 10px 0;
+      padding: 12px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(8px);
+      font-family: monospace;
+      font-size: 16px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .redeem {
+      margin-top: 20px;
+      padding: 20px;
+      border: 1px solid #e2e8f0;
+      border-radius: 18px;
+      text-align: center;
+      background: white;
+    }
+    .redeem h4 {
+      margin: 0 0 8px;
+      font-weight: 700;
+      color: #1e293b;
+    }
+    .redeem p {
+      margin: 0 0 12px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+    #redeemInput {
+      width: 100%;
+      padding: 14px;
+      border-radius: 12px;
+      border: 1px solid #cbd5e1;
+      text-align: center;
+      letter-spacing: 2px;
+      font-size: 16px;
+      font-weight: 600;
+      transition: var(--transition);
+    }
+    #redeemInput:focus {
+      outline: none;
+      border-color: #7c3aed;
+      box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.2);
+    }
+    #redeemStatus {
+      margin-top: 12px;
+      font-weight: 700;
+      min-height: 20px;
+    }
+
+    /* Footer */
+    .foot {
+      padding: 18px;
+      text-align: center;
+      border-top: 1px solid #e2e8f0;
+      background: #f8fafc;
+    }
+    .foot small {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    @media (max-width: 560px) {
+      .steps {
+        grid-template-columns: 1fr;
+      }
+      .hero h1 {
+        font-size: 26px;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <header class="header">
-            <h1>Digital Rewards Hub</h1>
-            <p>Access your exclusive digital content with security and ease</p>
-        </header>
+  <div class="orb o1"></div>
+  <div class="orb o2"></div>
 
-        <div class="content">
-            <div class="info-panel">
-                <h2>How to Access Your Content</h2>
-                <ul class="info-list">
-                    <li><i class="fas fa-cloud-download-alt"></i> Download the secure package</li>
-                    <li><i class="fas fa-file-archive"></i> Extract the ZIP file on your device</li>
-                    <li><i class="fas fa-folder-open"></i> Open and view your content</li>
-                    <li><i class="fas fa-shield-alt"></i> All files are scanned and encrypted</li>
-                    <li><i class="fas fa-question-circle"></i> Need help? Contact support</li>
-                </ul>
-                
-                <div style="margin-top: 30px; padding: 20px; background: #fef3c7; border-radius: 12px; border-left: 4px solid #f59e0b;">
-                    <p style="color: #92400e; margin: 0; font-size: 0.9rem;">
-                        <i class="fas fa-exclamation-triangle"></i> 
-                        <strong>Important:</strong> This portal only provides digital content. We never ask for passwords, credit cards, or personal information.
-                    </p>
-                </div>
-            </div>
+  <section class="shell" role="region" aria-label="Premium Gift">
+    <header class="hero">
+      <div class="gift"><i class="fa-solid fa-gift"></i></div>
+      <h1>Your Premium Gift</h1>
+      <p>A refined, accessible experience with smooth motion and elegant design.</p>
+    </header>
 
-            <div class="download-card">
-                <div class="file-icon">
-                    <i class="fas fa-file-zipper"></i>
-                </div>
-                <div class="file-details">
-                    <h3>Content_Package_V2.zip</h3>
-                    <p>Contains your digital materials and documentation</p>
-                    <div class="security-badge">
-                        <i class="fas fa-lock"></i>
-                        <span>256-bit Encrypted • 3.2 MB</span>
-                    </div>
-                </div>
-                
-                <button class="download-btn" onclick="initiateDownload()">
-                    <i class="fas fa-download"></i> Download Now
-                </button>
-                
-                <p style="margin-top: 15px; font-size: 0.85rem; color: #9ca3af;">
-                    <i class="fas fa-clock"></i> Download will begin automatically
-                </p>
-            </div>
+    <main class="content">
+      <div class="steps">
+        <div class="step">
+          <div class="num">1</div>
+          <i class="fa-solid fa-download"></i>
+          <h3>Download</h3>
+          <p>Get the package</p>
         </div>
+        <div class="step">
+          <div class="num">2</div>
+          <i class="fa-solid fa-box-open"></i>
+          <h3>Extract</h3>
+          <p>Unzip files</p>
+        </div>
+        <div class="step">
+          <div class="num">3</div>
+          <i class="fa-solid fa-gem"></i>
+          <h3>Enjoy</h3>
+          <p>Access content</p>
+        </div>
+      </div>
 
-        <footer class="footer">
-            <p>© 2023 Digital Rewards Hub. All content provided through this portal is for legitimate distribution purposes only.</p>
-            <p style="margin-top: 8px; font-size: 0.8rem;">
-                <i class="fas fa-envelope"></i> support@digital-rewards.com • 
-                <i class="fas fa-globe"></i> Secure HTTPS Connection
-            </p>
-        </footer>
-    </div>
+      <div class="file">
+        <div class="icon"><i class="fa-solid fa-file-zipper"></i></div>
+        <div>
+          <h4>Exclusive_Premium_Gift.zip</h4>
+          <span class="badge"><i class="fa-solid fa-user"></i> Premium User</span>
+        </div>
+      </div>
 
-    <script>
-        // Clean, legitimate download function - NO TRACKING
-        function initiateDownload() {
-            const btn = document.querySelector('.download-btn');
-            const originalText = btn.innerHTML;
-            
-            // Show loading state
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Preparing...';
-            btn.disabled = true;
-            
-            // Simulate preparation time
-            setTimeout(() => {
-                // Create a clean download link
-                const downloadLink = document.createElement('a');
-                // REPLACE THIS with your actual file URL
-                downloadLink.href = 'https://example.com/legitimate-file.zip';
-                downloadLink.download = 'Content_Package_V2.zip';
-                document.body.appendChild(downloadLink);
-                downloadLink.click();
-                document.body.removeChild(downloadLink);
-                
-                // Reset button
-                btn.innerHTML = '<i class="fas fa-check"></i> Download Complete!';
-                setTimeout(() => {
-                    btn.innerHTML = originalText;
-                    btn.disabled = false;
-                }, 2000);
-            }, 1000);
-        }
-        
-        // No hidden tracking, no data collection
-        console.log('Clean frontend loaded successfully.');
-    </script>
+      <div class="cta">
+        <button class="btn"><i class="fa-solid fa-arrow-down"></i> Download Premium Gift</button>
+        <div class="hint"><i class="fa-solid fa-lock"></i> Secure & Encrypted • 2.5MB</div>
+      </div>
+
+      <div class="code">
+        <small>Activation Code</small>
+        <b>Hidden inside ZIP file</b>
+        <small>Open the downloaded ZIP to find your unique code</small>
+      </div>
+
+      <div class="redeem">
+        <h4>Redeem Your Gift</h4>
+        <p>Enter the code found inside the ZIP file</p>
+        <input id="redeemInput" placeholder="ENTER CODE" aria-label="Gift redemption code" />
+        <button class="btn" style="margin-top:12px" onclick="redeem()">Redeem</button>
+        <div id="redeemStatus" aria-live="polite"></div>
+      </div>
+    </main>
+
+    <footer class="foot">
+      <small>© 2025 Premium Digital Gifts</small>
+    </footer>
+  </section>
+
+  <script>
+    const VALID_CODE = 'PREMIUM-2025-ACCESS';
+
+    function redeem() {
+      const input = document.getElementById('redeemInput');
+      const status = document.getElementById('redeemStatus');
+      const value = input.value.trim().toUpperCase();
+
+      if (!value) {
+        status.textContent = 'Please enter a code';
+        status.style.color = 'var(--error)';
+        return;
+      }
+
+      if (value === VALID_CODE) {
+        status.textContent = '✅ Gift redeemed successfully!';
+        status.style.color = 'var(--success)';
+        localStorage.setItem('gift_redeemed', '1');
+      } else {
+        status.textContent = '❌ Invalid code. Check the ZIP file.';
+        status.style.color = 'var(--error)';
+      }
+    }
+
+    // Check if already redeemed
+    if (localStorage.getItem('gift_redeemed')) {
+      document.getElementById('redeemStatus').innerHTML = '✅ Already redeemed on this device';
+      document.getElementById('redeemStatus').style.color = 'var(--success)';
+    }
+  </script>
 </body>
 </html>
