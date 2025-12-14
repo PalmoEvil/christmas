@@ -3,31 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Premium Digital Access</title>
+    <title>🎄 Holiday Special Offer</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        /* ========== MODERN REDESIGN - ONLY CSS CHANGES ========== */
         :root {
-            --primary: #6366f1;
-            --primary-dark: #4f46e5;
-            --secondary: #10b981;
-            --dark: #0f172a;
-            --light: #f8fafc;
-            --card-bg: rgba(255, 255, 255, 0.95);
-            --text: #1e293b;
-            --text-light: #64748b;
-            --border: #e2e8f0;
-            --shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
-            --shadow-lg: 0 35px 60px -15px rgba(0, 0, 0, 0.2);
-            --radius: 20px;
-            --radius-sm: 12px;
+            --christmas-red: #dc2626;
+            --christmas-green: #16a34a;
+            --christmas-gold: #f59e0b;
+            --snow-white: #f8fafc;
+            --winter-blue: #0ea5e9;
+            --dark: #1e293b;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             min-height: 100vh;
@@ -35,145 +23,137 @@
             align-items: center;
             justify-content: center;
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, 
-                #f0f9ff 0%, 
-                #e0f2fe 25%, 
-                #fae8ff 50%, 
-                #fce7f3 75%, 
-                #f0f9ff 100%);
-            background-size: 400% 400%;
-            animation: gradientBG 20s ease infinite;
-            color: var(--text);
+            background: linear-gradient(135deg, #0f172a, #1e293b);
+            color: var(--snow-white);
             padding: 20px;
             position: relative;
             overflow-x: hidden;
         }
 
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        /* Floating elements */
-        .floating-element {
+        /* Animated snowflakes */
+        .snowflake {
             position: absolute;
+            background: white;
             border-radius: 50%;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            opacity: 0.1;
-            filter: blur(40px);
-            z-index: -1;
+            opacity: 0.8;
+            animation: fall linear infinite;
+            z-index: 1;
         }
 
-        .fl-1 { width: 400px; height: 400px; top: -150px; right: -150px; }
-        .fl-2 { width: 300px; height: 300px; bottom: -100px; left: -100px; }
-        .fl-3 { width: 200px; height: 200px; top: 50%; left: 10%; }
+        @keyframes fall {
+            to { transform: translateY(100vh) rotate(360deg); }
+        }
 
-        /* Main container */
-        .shell {
+        /* Christmas lights */
+        .lights {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 20px;
+            background: repeating-linear-gradient(
+                90deg,
+                var(--christmas-red) 0px, var(--christmas-red) 10px,
+                var(--christmas-green) 10px, var(--christmas-green) 20px,
+                var(--christmas-gold) 20px, var(--christmas-gold) 30px,
+                var(--winter-blue) 30px, var(--winter-blue) 40px
+            );
+            animation: lights 2s linear infinite;
+        }
+
+        @keyframes lights {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        /* Main container - Christmas card style */
+        .christmas-card {
             width: 100%;
             max-width: 500px;
-            background: var(--card-bg);
+            background: linear-gradient(145deg, 
+                rgba(220, 38, 38, 0.1), 
+                rgba(22, 163, 74, 0.1),
+                rgba(245, 158, 11, 0.1));
             backdrop-filter: blur(20px);
-            border-radius: var(--radius);
-            box-shadow: var(--shadow-lg);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 25px;
+            border: 2px solid rgba(220, 38, 38, 0.3);
+            box-shadow: 
+                0 0 50px rgba(220, 38, 38, 0.3),
+                0 0 100px rgba(22, 163, 74, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
             overflow: hidden;
             position: relative;
             z-index: 10;
         }
 
-        /* Header - Modern gradient */
-        .hero {
+        /* Header with Christmas theme */
+        .holiday-header {
             padding: 40px 30px 30px;
-            background: linear-gradient(135deg, var(--dark), #1e293b);
+            background: linear-gradient(135deg, 
+                rgba(220, 38, 38, 0.9), 
+                rgba(22, 163, 74, 0.9));
             color: white;
             text-align: center;
             position: relative;
             overflow: hidden;
         }
 
-        .hero::before {
-            content: '';
+        .holiday-header::before {
+            content: '🎄 🎁 ✨';
             position: absolute;
-            top: 0;
+            top: 10px;
             left: 0;
             right: 0;
-            bottom: 0;
-            background: 
-                radial-gradient(circle at 20% 80%, rgba(99, 102, 241, 0.2) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(16, 185, 129, 0.2) 0%, transparent 50%);
+            font-size: 24px;
+            opacity: 0.3;
         }
 
-        /* Gift icon - Sleek 3D effect */
-        .gift {
+        /* Gift icon with Christmas colors */
+        .holiday-gift {
             width: 100px;
             height: 100px;
             margin: 0 auto 25px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            background: linear-gradient(135deg, var(--christmas-red), var(--christmas-gold));
             border-radius: 25px;
             display: flex;
             align-items: center;
             justify-content: center;
             box-shadow: 
-                0 15px 35px rgba(0, 0, 0, 0.3),
-                inset 0 1px 0 rgba(255, 255, 255, 0.3),
-                0 0 0 1px rgba(255, 255, 255, 0.1);
+                0 15px 35px rgba(220, 38, 38, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            border: 3px solid var(--christmas-gold);
             position: relative;
-            transform-style: preserve-3d;
-            transition: transform 0.5s ease;
+            animation: pulse 2s infinite;
         }
 
-        .gift:hover {
-            transform: translateY(-5px) rotateX(10deg);
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
         }
 
-        .gift::after {
-            content: '';
-            position: absolute;
-            top: 5px;
-            left: 5px;
-            right: 5px;
-            bottom: 5px;
-            border-radius: 20px;
-            background: linear-gradient(135deg, transparent, rgba(255, 255, 255, 0.1));
-            pointer-events: none;
-        }
-
-        .gift i {
+        .holiday-gift i {
             font-size: 42px;
             color: white;
             filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
-            position: relative;
-            z-index: 2;
         }
 
-        .hero h1 {
+        .holiday-header h1 {
             font-size: 32px;
             font-weight: 800;
             margin-bottom: 10px;
-            background: linear-gradient(to right, #fff, #e2e8f0);
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(to right, #fff, #fef3c7);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            position: relative;
-        }
-
-        .hero p {
-            font-size: 16px;
-            opacity: 0.9;
-            max-width: 400px;
-            margin: 0 auto;
-            line-height: 1.5;
-            position: relative;
         }
 
         /* Content area */
-        .content {
+        .holiday-content {
             padding: 30px;
         }
 
-        /* Steps - Modern card grid */
-        .steps {
+        /* Christmas-themed steps */
+        .holiday-steps {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 15px;
@@ -181,45 +161,26 @@
         }
 
         @media (max-width: 520px) {
-            .steps {
-                grid-template-columns: 1fr;
-            }
+            .holiday-steps { grid-template-columns: 1fr; }
         }
 
-        .step {
-            background: white;
+        .holiday-step {
+            background: rgba(255, 255, 255, 0.1);
             padding: 20px 15px;
-            border-radius: var(--radius-sm);
+            border-radius: 15px;
             text-align: center;
-            border: 1px solid var(--border);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
+            border: 1px solid rgba(220, 38, 38, 0.3);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
         }
 
-        .step:hover {
+        .holiday-step:hover {
             transform: translateY(-5px);
-            border-color: var(--primary);
-            box-shadow: 0 15px 30px rgba(99, 102, 241, 0.1);
+            border-color: var(--christmas-gold);
+            background: rgba(245, 158, 11, 0.2);
         }
 
-        .step::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .step:hover::before {
-            opacity: 1;
-        }
-
-        .num {
+        .holiday-num {
             width: 36px;
             height: 36px;
             border-radius: 50%;
@@ -229,295 +190,280 @@
             justify-content: center;
             color: white;
             font-weight: 700;
-            font-size: 16px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
-            position: relative;
-            z-index: 1;
+            background: linear-gradient(135deg, var(--christmas-red), var(--christmas-green));
+            border: 2px solid white;
+            box-shadow: 0 4px 12px rgba(220, 38, 38, 0.4);
         }
 
-        .step i {
+        .holiday-step i {
             font-size: 24px;
-            color: var(--primary);
+            color: var(--christmas-gold);
             margin: 10px 0;
             display: block;
         }
 
-        .step h3 {
-            font-size: 15px;
-            font-weight: 600;
-            margin: 8px 0 5px;
-            color: var(--dark);
-        }
-
-        .step p {
-            font-size: 13px;
-            color: var(--text-light);
-            margin: 0;
-            line-height: 1.4;
-        }
-
-        /* File card - Glass morphism */
-        .file {
+        /* File card - Christmas present style */
+        .holiday-file {
             display: flex;
             gap: 20px;
             align-items: center;
             padding: 20px;
             margin: 25px 0;
-            background: rgba(99, 102, 241, 0.05);
-            border-radius: var(--radius-sm);
-            border: 1px solid rgba(99, 102, 241, 0.1);
-            backdrop-filter: blur(10px);
+            background: linear-gradient(135deg, 
+                rgba(220, 38, 38, 0.1), 
+                rgba(22, 163, 74, 0.1));
+            border-radius: 15px;
+            border: 2px dashed var(--christmas-gold);
+            position: relative;
         }
 
-        .file .icon {
+        .holiday-file::before {
+            content: '🎀';
+            position: absolute;
+            top: -15px;
+            right: 20px;
+            font-size: 24px;
+        }
+
+        .holiday-icon {
             width: 60px;
             height: 60px;
             border-radius: 15px;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            background: linear-gradient(135deg, var(--christmas-red), var(--christmas-green));
             color: white;
             font-size: 24px;
-            flex-shrink: 0;
-            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.2);
+            box-shadow: 0 8px 20px rgba(220, 38, 38, 0.3);
         }
 
-        .file h4 {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 5px;
-            color: var(--dark);
-        }
-
-        .badge {
-            display: inline-flex;
-            gap: 8px;
-            align-items: center;
-            padding: 8px 16px;
-            border-radius: 50px;
-            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(16, 185, 129, 0.1));
-            color: var(--primary-dark);
-            font-size: 13px;
-            font-weight: 500;
-            border: 1px solid rgba(99, 102, 241, 0.2);
-        }
-
-        /* CTA section */
-        .cta {
+        /* CTA - Big red button */
+        .holiday-cta {
             margin: 30px 0;
         }
 
-        .btn {
+        .holiday-btn {
             width: 100%;
-            padding: 18px;
+            padding: 20px;
             border: none;
-            border-radius: var(--radius-sm);
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border-radius: 15px;
+            background: linear-gradient(135deg, var(--christmas-red), #b91c1c);
             color: white;
-            font-size: 16px;
-            font-weight: 600;
+            font-size: 18px;
+            font-weight: 700;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 12px;
             transition: all 0.3s ease;
-            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 30px rgba(99, 102, 241, 0.4);
-        }
-
-        .btn:active {
-            transform: translateY(-1px);
-        }
-
-        .btn::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.5s ease;
-        }
-
-        .btn:hover::after {
-            left: 100%;
-        }
-
-        .hint {
-            text-align: center;
-            font-size: 13px;
-            color: var(--text-light);
-            margin-top: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-
-        /* Code section - Dark theme */
-        .code {
-            margin: 30px 0;
-            padding: 25px;
-            border-radius: var(--radius-sm);
-            background: linear-gradient(135deg, var(--dark), #1a202c);
-            color: white;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .code::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
-            animation: rotate 20s linear infinite;
-        }
-
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        .code small {
-            font-size: 12px;
-            opacity: 0.8;
+            box-shadow: 
+                0 10px 30px rgba(220, 38, 38, 0.4),
+                0 0 20px rgba(245, 158, 11, 0.3);
             text-transform: uppercase;
             letter-spacing: 1px;
             position: relative;
-            z-index: 2;
+            overflow: hidden;
         }
 
-        .code b {
+        .holiday-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 
+                0 15px 40px rgba(220, 38, 38, 0.6),
+                0 0 30px rgba(245, 158, 11, 0.5);
+        }
+
+        .holiday-btn::after {
+            content: '✨';
+            position: absolute;
+            top: 50%;
+            left: -100%;
+            transform: translateY(-50%);
+            font-size: 24px;
+            transition: left 0.5s ease;
+        }
+
+        .holiday-btn:hover::after {
+            left: 100%;
+        }
+
+        /* Code section - Golden ticket */
+        .golden-ticket {
+            margin: 30px 0;
+            padding: 25px;
+            border-radius: 15px;
+            background: linear-gradient(135deg, 
+                #fef3c7, 
+                #f59e0b,
+                #fbbf24);
+            color: #78350f;
+            text-align: center;
+            border: 3px solid #92400e;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .golden-ticket::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(circle at 25% 25%, rgba(255,255,255,0.3) 2px, transparent 3px),
+                radial-gradient(circle at 75% 75%, rgba(255,255,255,0.3) 2px, transparent 3px);
+            background-size: 30px 30px;
+        }
+
+        .golden-ticket b {
             display: block;
-            font-size: 18px;
-            letter-spacing: 2px;
+            font-size: 20px;
+            letter-spacing: 3px;
             margin: 15px 0;
             padding: 15px;
             border-radius: 10px;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.3);
             font-family: 'Courier New', monospace;
-            position: relative;
-            z-index: 2;
-        }
-
-        /* Redeem section */
-        .redeem {
-            margin: 30px 0;
-            padding: 25px;
-            border-radius: var(--radius-sm);
-            background: white;
-            border: 1px solid var(--border);
-            text-align: center;
-        }
-
-        .redeem h4 {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 10px;
-            color: var(--dark);
-        }
-
-        #redeemInput {
-            width: 100%;
-            padding: 16px;
-            border: 2px solid var(--border);
-            border-radius: var(--radius-sm);
-            font-size: 16px;
-            text-align: center;
-            letter-spacing: 2px;
-            margin: 15px 0;
-            transition: all 0.3s ease;
-            font-family: 'Courier New', monospace;
-        }
-
-        #redeemInput:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+            border: 2px dashed #92400e;
         }
 
         /* Footer */
-        .foot {
+        .holiday-footer {
             padding: 20px;
             text-align: center;
-            border-top: 1px solid var(--border);
-            background: var(--light);
-            color: var(--text-light);
+            border-top: 1px solid rgba(220, 38, 38, 0.3);
+            background: rgba(30, 41, 59, 0.5);
+            color: #cbd5e1;
             font-size: 14px;
+        }
+
+        /* Christmas message box */
+        .christmas-message {
+            padding: 20px;
+            margin: 20px 0;
+            background: linear-gradient(135deg, 
+                rgba(14, 165, 233, 0.2), 
+                rgba(22, 163, 74, 0.2));
+            border-radius: 15px;
+            border-left: 5px solid var(--winter-blue);
+            text-align: center;
+        }
+
+        .christmas-message h3 {
+            color: var(--christmas-gold);
+            margin-bottom: 10px;
+            font-size: 20px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .holiday-header { padding: 30px 20px 25px; }
+            .holiday-content { padding: 20px; }
+            .holiday-header h1 { font-size: 28px; }
         }
     </style>
 </head>
 <body>
-    <!-- Your exact HTML structure - NO CHANGES -->
-    <div class="floating-element fl-1"></div>
-    <div class="floating-element fl-2"></div>
-    <div class="floating-element fl-3"></div>
+    <!-- Christmas lights -->
+    <div class="lights"></div>
     
-    <section class="shell" role="region" aria-label="Premium Gift">
-        <header class="hero">
-            <div class="gift"><i class="fa-solid fa-gift"></i></div>
-            <h1>Your Premium Gift</h1>
-            <p>A clean, modern experience with smooth motion and accessibility-first layout.</p>
+    <!-- Snowflakes -->
+    <script>
+        // Create snowflakes
+        for(let i = 0; i < 50; i++) {
+            const snow = document.createElement('div');
+            snow.className = 'snowflake';
+            snow.style.width = Math.random() * 10 + 5 + 'px';
+            snow.style.height = snow.style.width;
+            snow.style.left = Math.random() * 100 + 'vw';
+            snow.style.top = Math.random() * -100 + 'px';
+            snow.style.opacity = Math.random() * 0.5 + 0.3;
+            snow.style.animationDuration = Math.random() * 5 + 5 + 's';
+            snow.style.animationDelay = Math.random() * 5 + 's';
+            document.body.appendChild(snow);
+        }
+    </script>
+    
+    <!-- Christmas Card -->
+    <div class="christmas-card">
+        <header class="holiday-header">
+            <div class="holiday-gift"><i class="fa-solid fa-gift"></i></div>
+            <h1>🎄 Holiday Special 🎄</h1>
+            <p>Season's greetings and digital cheer!</p>
         </header>
 
-        <main class="content">
-            <div class="steps">
-                <div class="step"><div class="num">1</div><i class="fa-solid fa-download"></i><h3>Download</h3><p>Get the package</p></div>
-                <div class="step"><div class="num">2</div><i class="fa-solid fa-box-open"></i><h3>Extract</h3><p>Unzip files</p></div>
-                <div class="step"><div class="num">3</div><i class="fa-solid fa-star"></i><h3>Enjoy</h3><p>Access content</p></div>
+        <main class="holiday-content">
+            <!-- Christmas message -->
+            <div class="christmas-message">
+                <h3>Happy Holidays!</h3>
+                <p>Enjoy this seasonal digital gift during the holiday season.</p>
             </div>
 
-            <div class="file">
-                <div class="icon"><i class="fa-solid fa-file-zipper"></i></div>
-                <div>
-                    <h4>Exclusive_Premium_Gift.zip</h4>
-                    <span class="badge"><i class="fa-solid fa-user"></i> Premium User</span>
+            <div class="holiday-steps">
+                <div class="holiday-step">
+                    <div class="holiday-num">1</div>
+                    <i class="fa-solid fa-download"></i>
+                    <h3>Download</h3>
+                    <p>Get your holiday file</p>
+                </div>
+                <div class="holiday-step">
+                    <div class="holiday-num">2</div>
+                    <i class="fa-solid fa-box-open"></i>
+                    <h3>Extract</h3>
+                    <p>Unzip the contents</p>
+                </div>
+                <div class="holiday-step">
+                    <div class="holiday-num">3</div>
+                    <i class="fa-solid fa-star"></i>
+                    <h3>Enjoy</h3>
+                    <p>Access your content</p>
                 </div>
             </div>
 
-            <div class="cta">
-                <button class="btn"><i class="fa-solid fa-arrow-down"></i> Download Premium Gift</button>
-                <div class="hint"><i class="fa-solid fa-shield"></i> Secure • 2.5MB</div>
+            <div class="holiday-file">
+                <div class="holiday-icon"><i class="fa-solid fa-file-zipper"></i></div>
+                <div>
+                    <h4>Holiday_Special_2024.zip</h4>
+                    <span class="badge" style="background: rgba(245, 158, 11, 0.2); color: #f59e0b; padding: 8px 16px; border-radius: 50px; font-size: 13px;">
+                        <i class="fa-solid fa-user"></i> Holiday User
+                    </span>
+                </div>
             </div>
 
-            <div class="code">
-                <small>Activation Code</small>
-                <b>Hidden inside ZIP file</b>
-                <small>Open the downloaded ZIP to find your unique code</small>
+            <div class="holiday-cta">
+                <button class="holiday-btn">
+                    <i class="fa-solid fa-download"></i> Get Holiday Content
+                </button>
+                <div style="text-align: center; margin-top: 15px; color: #cbd5e1; font-size: 13px;">
+                    <i class="fa-solid fa-shield"></i> Secure Seasonal File
+                </div>
             </div>
 
-            <div class="redeem">
-                <h4>Redeem your gift</h4>
-                <p>Enter the code found inside the ZIP file</p>
-                <input id="redeemInput" placeholder="ENTER CODE" />
-                <button class="btn" onclick="redeem()">Redeem</button>
-                <div id="redeemStatus"></div>
+            <div class="golden-ticket">
+                <small>Holiday Access Code</small>
+                <b>INSIDE THE ZIP FILE</b>
+                <small>Find your unique code after downloading</small>
+            </div>
+
+            <div class="redeem" style="margin-top: 30px; padding: 25px; border-radius: 15px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(220, 38, 38, 0.2); text-align: center;">
+                <h4 style="color: var(--christmas-gold); margin-bottom: 10px;">Enter Your Code</h4>
+                <p style="color: #cbd5e1; margin-bottom: 15px; font-size: 14px;">Found in the downloaded file</p>
+                <input id="redeemInput" placeholder="ENTER HOLIDAY CODE" style="width: 100%; padding: 16px; border-radius: 10px; border: 2px solid var(--christmas-green); background: rgba(255, 255, 255, 0.1); color: white; text-align: center; letter-spacing: 2px; font-size: 16px;" />
+                <button class="holiday-btn" onclick="redeem()" style="margin-top: 15px;">Redeem Code</button>
+                <div id="redeemStatus" style="margin-top: 15px; font-weight: 600;"></div>
             </div>
         </main>
 
-        <footer class="foot">
-            <small>© Premium Digital Gifts</small>
+        <footer class="holiday-footer">
+            <small>🎅 Merry Christmas & Happy Holidays 🎄</small><br>
+            <small style="font-size: 12px; opacity: 0.7;">Seasonal digital content for entertainment purposes</small>
         </footer>
-    </section>
+    </div>
 
-    <!-- Your exact JavaScript - NO CHANGES -->
     <script>
-        const VALID_CODE = 'PREMIUM-2025-ACCESS';
+        const VALID_CODE = 'HOLIDAY-2024-CODE';
 
         function redeem(){
             const v = document.getElementById('redeemInput').value.trim();
@@ -530,18 +476,24 @@
             }
 
             if(v === VALID_CODE){
-                s.textContent='Gift redeemed successfully!';
+                s.textContent='🎉 Holiday content unlocked!';
                 s.style.color='#16a34a';
-                localStorage.setItem('redeemed','1');
+                localStorage.setItem('holiday_redeemed','1');
+                
+                // Add some celebration
+                document.querySelector('.holiday-gift').style.animation = 'pulse 0.5s infinite';
+                setTimeout(() => {
+                    document.querySelector('.holiday-gift').style.animation = 'pulse 2s infinite';
+                }, 2000);
             } else {
-                s.textContent='Invalid code';
+                s.textContent='Code not recognized';
                 s.style.color='#dc2626';
             }
         }
 
-        if(localStorage.getItem('redeemed')){
+        if(localStorage.getItem('holiday_redeemed')){
             const s = document.getElementById('redeemStatus');
-            s.textContent='Already redeemed on this device';
+            s.textContent='Already redeemed during this season';
             s.style.color='#16a34a';
         }
     </script>
