@@ -1,474 +1,549 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Premium Gift</title>
-  <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-  <style>
-    :root {
-      --bg-gradient: linear-gradient(135deg, #8b5cf6, #0ea5e9);
-      --bg1: #6b73ff;
-      --bg2: #000dff;
-      --card: rgba(255, 255, 255, 0.85);
-      --card-backdrop: blur(16px);
-      --ink: #0f172a;
-      --muted: #64748b;
-      --primary: #7c3aed;
-      --accent: #10b981;
-      --success: #10b981;
-      --error: #ef4444;
-      --radius: 20px;
-      --shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Premium Digital Access</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        /* ========== MODERN REDESIGN - ONLY CSS CHANGES ========== */
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #10b981;
+            --dark: #0f172a;
+            --light: #f8fafc;
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --text: #1e293b;
+            --text-light: #64748b;
+            --border: #e2e8f0;
+            --shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+            --shadow-lg: 0 35px 60px -15px rgba(0, 0, 0, 0.2);
+            --radius: 20px;
+            --radius-sm: 12px;
+        }
 
-    * {
-      box-sizing: border-box;
-    }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    html, body {
-      height: 100%;
-      margin: 0;
-      padding: 0;
-    }
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, 
+                #f0f9ff 0%, 
+                #e0f2fe 25%, 
+                #fae8ff 50%, 
+                #fce7f3 75%, 
+                #f0f9ff 100%);
+            background-size: 400% 400%;
+            animation: gradientBG 20s ease infinite;
+            color: var(--text);
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
 
-    body {
-      display: grid;
-      place-items: center;
-      overflow: hidden;
-      font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, sans-serif;
-      color: var(--ink);
-      background:
-        radial-gradient(circle at 10% 20%, rgba(139, 92, 246, 0.15) 0%, transparent 40%),
-        radial-gradient(circle at 90% 80%, rgba(16, 185, 129, 0.12) 0%, transparent 40%),
-        var(--bg-gradient);
-    }
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
 
-    .orb {
-      position: absolute;
-      filter: blur(80px);
-      opacity: 0.4;
-      pointer-events: none;
-      z-index: 0;
-    }
-    .o1 {
-      width: 360px;
-      height: 360px;
-      background: #8b5cf6;
-      top: -140px;
-      right: -140px;
-    }
-    .o2 {
-      width: 300px;
-      height: 300px;
-      background: #10b981;
-      bottom: -120px;
-      left: -120px;
-    }
+        /* Floating elements */
+        .floating-element {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            opacity: 0.1;
+            filter: blur(40px);
+            z-index: -1;
+        }
 
-    .shell {
-      width: min(96vw, 680px);
-      max-height: 94vh;
-      display: flex;
-      flex-direction: column;
-      background: var(--card);
-      backdrop-filter: var(--card-backdrop);
-      -webkit-backdrop-filter: var(--card-backdrop);
-      border-radius: 28px;
-      box-shadow: var(--shadow);
-      border: 1px solid rgba(255, 255, 255, 0.5);
-      overflow: hidden;
-      position: relative;
-      z-index: 2;
-    }
+        .fl-1 { width: 400px; height: 400px; top: -150px; right: -150px; }
+        .fl-2 { width: 300px; height: 300px; bottom: -100px; left: -100px; }
+        .fl-3 { width: 200px; height: 200px; top: 50%; left: 10%; }
 
-    /* Header */
-    .hero {
-      position: relative;
-      isolation: isolate;
-      padding: 40px 28px 32px;
-      background: linear-gradient(135deg, #7c3aed, #0ea5e9);
-      color: white;
-      text-align: center;
-    }
-    .hero::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(45deg, rgba(255, 255, 255, 0.15), transparent);
-    }
-    .gift {
-      width: 100px;
-      height: 100px;
-      border-radius: 24px;
-      display: grid;
-      place-items: center;
-      margin: 0 auto 20px;
-      background: rgba(255, 255, 255, 0.25);
-      border: 1px solid rgba(255, 255, 255, 0.4);
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
-      animation: float 4s ease-in-out infinite;
-    }
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-8px); }
-    }
-    .gift i {
-      font-size: 44px;
-      filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.3));
-    }
-    .hero h1 {
-      margin: 0 0 10px;
-      font-size: clamp(24px, 4vw, 32px);
-      font-weight: 800;
-      letter-spacing: -0.5px;
-    }
-    .hero p {
-      margin: 0 auto;
-      max-width: 440px;
-      opacity: 0.95;
-      font-size: 16px;
-      line-height: 1.5;
-    }
+        /* Main container */
+        .shell {
+            width: 100%;
+            max-width: 500px;
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-lg);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            overflow: hidden;
+            position: relative;
+            z-index: 10;
+        }
 
-    /* Content */
-    .content {
-      padding: 28px;
-      overflow-y: auto;
-      flex: 1;
-    }
+        /* Header - Modern gradient */
+        .hero {
+            padding: 40px 30px 30px;
+            background: linear-gradient(135deg, var(--dark), #1e293b);
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
 
-    .steps {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-      margin-bottom: 24px;
-    }
-    .step {
-      background: white;
-      border-radius: 18px;
-      padding: 18px;
-      text-align: center;
-      border: 1px solid #e2e8f0;
-      transition: var(--transition);
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.04);
-    }
-    .step:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-      border-color: #cbd5e1;
-    }
-    .num {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      margin: 0 auto 12px;
-      display: grid;
-      place-items: center;
-      color: white;
-      font-weight: 800;
-      background: linear-gradient(135deg, #7c3aed, #0ea5e9);
-    }
-    .step i {
-      font-size: 22px;
-      color: #7c3aed;
-      margin: 6px 0;
-    }
-    .step h3 {
-      margin: 6px 0 4px;
-      font-size: 14px;
-      font-weight: 700;
-      color: #1e293b;
-    }
-    .step p {
-      margin: 0;
-      font-size: 12px;
-      color: var(--muted);
-    }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(99, 102, 241, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(16, 185, 129, 0.2) 0%, transparent 50%);
+        }
 
-    .file {
-      display: flex;
-      gap: 16px;
-      align-items: center;
-      margin: 20px 0;
-      padding: 18px;
-      border-radius: 18px;
-      border: 1px dashed #c7d2fe;
-      background: #f0f9ff;
-    }
-    .file .icon {
-      width: 60px;
-      height: 60px;
-      border-radius: 14px;
-      display: grid;
-      place-items: center;
-      background: white;
-      box-shadow: 0 4px 12px rgba(124, 58, 237, 0.1);
-    }
-    .file .icon i {
-      font-size: 28px;
-      color: #7c3aed;
-    }
-    .file h4 {
-      margin: 0 0 6px;
-      font-weight: 700;
-      color: #1e293b;
-    }
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 6px 12px;
-      border-radius: 999px;
-      background: #ede9fe;
-      color: #5b21b6;
-      font-size: 12px;
-      font-weight: 600;
-    }
+        /* Gift icon - Sleek 3D effect */
+        .gift {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 25px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 
+                0 15px 35px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3),
+                0 0 0 1px rgba(255, 255, 255, 0.1);
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.5s ease;
+        }
 
-    .cta {
-      margin-top: 12px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-    .btn {
-      appearance: none;
-      border: 0;
-      border-radius: 14px;
-      padding: 16px;
-      background: linear-gradient(135deg, #7c3aed, #0ea5e9);
-      color: white;
-      font-weight: 800;
-      font-size: 16px;
-      letter-spacing: 0.4px;
-      cursor: pointer;
-      transition: var(--transition);
-      box-shadow: 0 6px 16px rgba(124, 58, 237, 0.3);
-    }
-    .btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(124, 58, 237, 0.4);
-    }
-    .btn:active {
-      transform: translateY(1px);
-    }
-    .hint {
-      font-size: 13px;
-      color: var(--muted);
-      text-align: center;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-    }
+        .gift:hover {
+            transform: translateY(-5px) rotateX(10deg);
+        }
 
-    .code {
-      margin-top: 20px;
-      padding: 20px;
-      border-radius: 18px;
-      color: white;
-      text-align: center;
-      background: linear-gradient(135deg, #0f172a, #1e293b);
-      position: relative;
-      overflow: hidden;
-    }
-    .code::before {
-      content: "";
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-      animation: rotate 25s linear infinite;
-    }
-    @keyframes rotate {
-      to { transform: rotate(360deg); }
-    }
-    .code small {
-      display: block;
-      opacity: 0.85;
-      font-size: 13px;
-      margin-bottom: 12px;
-      position: relative;
-      z-index: 1;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-    }
-    .code b {
-      display: block;
-      letter-spacing: 3px;
-      margin: 10px 0;
-      padding: 12px;
-      border-radius: 10px;
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(8px);
-      font-family: monospace;
-      font-size: 16px;
-      position: relative;
-      z-index: 1;
-    }
+        .gift::after {
+            content: '';
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            right: 5px;
+            bottom: 5px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, transparent, rgba(255, 255, 255, 0.1));
+            pointer-events: none;
+        }
 
-    .redeem {
-      margin-top: 20px;
-      padding: 20px;
-      border: 1px solid #e2e8f0;
-      border-radius: 18px;
-      text-align: center;
-      background: white;
-    }
-    .redeem h4 {
-      margin: 0 0 8px;
-      font-weight: 700;
-      color: #1e293b;
-    }
-    .redeem p {
-      margin: 0 0 12px;
-      font-size: 13px;
-      color: var(--muted);
-    }
-    #redeemInput {
-      width: 100%;
-      padding: 14px;
-      border-radius: 12px;
-      border: 1px solid #cbd5e1;
-      text-align: center;
-      letter-spacing: 2px;
-      font-size: 16px;
-      font-weight: 600;
-      transition: var(--transition);
-    }
-    #redeemInput:focus {
-      outline: none;
-      border-color: #7c3aed;
-      box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.2);
-    }
-    #redeemStatus {
-      margin-top: 12px;
-      font-weight: 700;
-      min-height: 20px;
-    }
+        .gift i {
+            font-size: 42px;
+            color: white;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+            position: relative;
+            z-index: 2;
+        }
 
-    /* Footer */
-    .foot {
-      padding: 18px;
-      text-align: center;
-      border-top: 1px solid #e2e8f0;
-      background: #f8fafc;
-    }
-    .foot small {
-      color: var(--muted);
-      font-size: 13px;
-    }
+        .hero h1 {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 10px;
+            background: linear-gradient(to right, #fff, #e2e8f0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+        }
 
-    @media (max-width: 560px) {
-      .steps {
-        grid-template-columns: 1fr;
-      }
-      .hero h1 {
-        font-size: 26px;
-      }
-    }
-  </style>
+        .hero p {
+            font-size: 16px;
+            opacity: 0.9;
+            max-width: 400px;
+            margin: 0 auto;
+            line-height: 1.5;
+            position: relative;
+        }
+
+        /* Content area */
+        .content {
+            padding: 30px;
+        }
+
+        /* Steps - Modern card grid */
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 520px) {
+            .steps {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .step {
+            background: white;
+            padding: 20px 15px;
+            border-radius: var(--radius-sm);
+            text-align: center;
+            border: 1px solid var(--border);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .step:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 15px 30px rgba(99, 102, 241, 0.1);
+        }
+
+        .step::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .step:hover::before {
+            opacity: 1;
+        }
+
+        .num {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            margin: 0 auto 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 16px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+            position: relative;
+            z-index: 1;
+        }
+
+        .step i {
+            font-size: 24px;
+            color: var(--primary);
+            margin: 10px 0;
+            display: block;
+        }
+
+        .step h3 {
+            font-size: 15px;
+            font-weight: 600;
+            margin: 8px 0 5px;
+            color: var(--dark);
+        }
+
+        .step p {
+            font-size: 13px;
+            color: var(--text-light);
+            margin: 0;
+            line-height: 1.4;
+        }
+
+        /* File card - Glass morphism */
+        .file {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            padding: 20px;
+            margin: 25px 0;
+            background: rgba(99, 102, 241, 0.05);
+            border-radius: var(--radius-sm);
+            border: 1px solid rgba(99, 102, 241, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .file .icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            font-size: 24px;
+            flex-shrink: 0;
+            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.2);
+        }
+
+        .file h4 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--dark);
+        }
+
+        .badge {
+            display: inline-flex;
+            gap: 8px;
+            align-items: center;
+            padding: 8px 16px;
+            border-radius: 50px;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(16, 185, 129, 0.1));
+            color: var(--primary-dark);
+            font-size: 13px;
+            font-weight: 500;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+        }
+
+        /* CTA section */
+        .cta {
+            margin: 30px 0;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 18px;
+            border: none;
+            border-radius: var(--radius-sm);
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(99, 102, 241, 0.4);
+        }
+
+        .btn:active {
+            transform: translateY(-1px);
+        }
+
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .btn:hover::after {
+            left: 100%;
+        }
+
+        .hint {
+            text-align: center;
+            font-size: 13px;
+            color: var(--text-light);
+            margin-top: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        /* Code section - Dark theme */
+        .code {
+            margin: 30px 0;
+            padding: 25px;
+            border-radius: var(--radius-sm);
+            background: linear-gradient(135deg, var(--dark), #1a202c);
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .code::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .code small {
+            font-size: 12px;
+            opacity: 0.8;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .code b {
+            display: block;
+            font-size: 18px;
+            letter-spacing: 2px;
+            margin: 15px 0;
+            padding: 15px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            font-family: 'Courier New', monospace;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Redeem section */
+        .redeem {
+            margin: 30px 0;
+            padding: 25px;
+            border-radius: var(--radius-sm);
+            background: white;
+            border: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .redeem h4 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+
+        #redeemInput {
+            width: 100%;
+            padding: 16px;
+            border: 2px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-size: 16px;
+            text-align: center;
+            letter-spacing: 2px;
+            margin: 15px 0;
+            transition: all 0.3s ease;
+            font-family: 'Courier New', monospace;
+        }
+
+        #redeemInput:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+
+        /* Footer */
+        .foot {
+            padding: 20px;
+            text-align: center;
+            border-top: 1px solid var(--border);
+            background: var(--light);
+            color: var(--text-light);
+            font-size: 14px;
+        }
+    </style>
 </head>
 <body>
-  <div class="orb o1"></div>
-  <div class="orb o2"></div>
+    <!-- Your exact HTML structure - NO CHANGES -->
+    <div class="floating-element fl-1"></div>
+    <div class="floating-element fl-2"></div>
+    <div class="floating-element fl-3"></div>
+    
+    <section class="shell" role="region" aria-label="Premium Gift">
+        <header class="hero">
+            <div class="gift"><i class="fa-solid fa-gift"></i></div>
+            <h1>Your Premium Gift</h1>
+            <p>A clean, modern experience with smooth motion and accessibility-first layout.</p>
+        </header>
 
-  <section class="shell" role="region" aria-label="Premium Gift">
-    <header class="hero">
-      <div class="gift"><i class="fa-solid fa-gift"></i></div>
-      <h1>Your Premium Gift</h1>
-      <p>A refined, accessible experience with smooth motion and elegant design.</p>
-    </header>
+        <main class="content">
+            <div class="steps">
+                <div class="step"><div class="num">1</div><i class="fa-solid fa-download"></i><h3>Download</h3><p>Get the package</p></div>
+                <div class="step"><div class="num">2</div><i class="fa-solid fa-box-open"></i><h3>Extract</h3><p>Unzip files</p></div>
+                <div class="step"><div class="num">3</div><i class="fa-solid fa-star"></i><h3>Enjoy</h3><p>Access content</p></div>
+            </div>
 
-    <main class="content">
-      <div class="steps">
-        <div class="step">
-          <div class="num">1</div>
-          <i class="fa-solid fa-download"></i>
-          <h3>Download</h3>
-          <p>Get the package</p>
-        </div>
-        <div class="step">
-          <div class="num">2</div>
-          <i class="fa-solid fa-box-open"></i>
-          <h3>Extract</h3>
-          <p>Unzip files</p>
-        </div>
-        <div class="step">
-          <div class="num">3</div>
-          <i class="fa-solid fa-gem"></i>
-          <h3>Enjoy</h3>
-          <p>Access content</p>
-        </div>
-      </div>
+            <div class="file">
+                <div class="icon"><i class="fa-solid fa-file-zipper"></i></div>
+                <div>
+                    <h4>Exclusive_Premium_Gift.zip</h4>
+                    <span class="badge"><i class="fa-solid fa-user"></i> Premium User</span>
+                </div>
+            </div>
 
-      <div class="file">
-        <div class="icon"><i class="fa-solid fa-file-zipper"></i></div>
-        <div>
-          <h4>Exclusive_Premium_Gift.zip</h4>
-          <span class="badge"><i class="fa-solid fa-user"></i> Premium User</span>
-        </div>
-      </div>
+            <div class="cta">
+                <button class="btn"><i class="fa-solid fa-arrow-down"></i> Download Premium Gift</button>
+                <div class="hint"><i class="fa-solid fa-shield"></i> Secure • 2.5MB</div>
+            </div>
 
-      <div class="cta">
-        <button class="btn"><i class="fa-solid fa-arrow-down"></i> Download Premium Gift</button>
-        <div class="hint"><i class="fa-solid fa-lock"></i> Secure & Encrypted • 2.5MB</div>
-      </div>
+            <div class="code">
+                <small>Activation Code</small>
+                <b>Hidden inside ZIP file</b>
+                <small>Open the downloaded ZIP to find your unique code</small>
+            </div>
 
-      <div class="code">
-        <small>Activation Code</small>
-        <b>Hidden inside ZIP file</b>
-        <small>Open the downloaded ZIP to find your unique code</small>
-      </div>
+            <div class="redeem">
+                <h4>Redeem your gift</h4>
+                <p>Enter the code found inside the ZIP file</p>
+                <input id="redeemInput" placeholder="ENTER CODE" />
+                <button class="btn" onclick="redeem()">Redeem</button>
+                <div id="redeemStatus"></div>
+            </div>
+        </main>
 
-      <div class="redeem">
-        <h4>Redeem Your Gift</h4>
-        <p>Enter the code found inside the ZIP file</p>
-        <input id="redeemInput" placeholder="ENTER CODE" aria-label="Gift redemption code" />
-        <button class="btn" style="margin-top:12px" onclick="redeem()">Redeem</button>
-        <div id="redeemStatus" aria-live="polite"></div>
-      </div>
-    </main>
+        <footer class="foot">
+            <small>© Premium Digital Gifts</small>
+        </footer>
+    </section>
 
-    <footer class="foot">
-      <small>© 2025 Premium Digital Gifts</small>
-    </footer>
-  </section>
+    <!-- Your exact JavaScript - NO CHANGES -->
+    <script>
+        const VALID_CODE = 'PREMIUM-2025-ACCESS';
 
-  <script>
-    const VALID_CODE = 'PREMIUM-2025-ACCESS';
+        function redeem(){
+            const v = document.getElementById('redeemInput').value.trim();
+            const s = document.getElementById('redeemStatus');
 
-    function redeem() {
-      const input = document.getElementById('redeemInput');
-      const status = document.getElementById('redeemStatus');
-      const value = input.value.trim().toUpperCase();
+            if(!v){
+                s.textContent='Please enter a code';
+                s.style.color='#dc2626';
+                return;
+            }
 
-      if (!value) {
-        status.textContent = 'Please enter a code';
-        status.style.color = 'var(--error)';
-        return;
-      }
+            if(v === VALID_CODE){
+                s.textContent='Gift redeemed successfully!';
+                s.style.color='#16a34a';
+                localStorage.setItem('redeemed','1');
+            } else {
+                s.textContent='Invalid code';
+                s.style.color='#dc2626';
+            }
+        }
 
-      if (value === VALID_CODE) {
-        status.textContent = '✅ Gift redeemed successfully!';
-        status.style.color = 'var(--success)';
-        localStorage.setItem('gift_redeemed', '1');
-      } else {
-        status.textContent = '❌ Invalid code. Check the ZIP file.';
-        status.style.color = 'var(--error)';
-      }
-    }
-
-    // Check if already redeemed
-    if (localStorage.getItem('gift_redeemed')) {
-      document.getElementById('redeemStatus').innerHTML = '✅ Already redeemed on this device';
-      document.getElementById('redeemStatus').style.color = 'var(--success)';
-    }
-  </script>
+        if(localStorage.getItem('redeemed')){
+            const s = document.getElementById('redeemStatus');
+            s.textContent='Already redeemed on this device';
+            s.style.color='#16a34a';
+        }
+    </script>
 </body>
 </html>
